@@ -1,0 +1,78 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: #000000;
+}
+
+body,
+input,
+button {
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, Segoe UI,
+    Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+    sans-serif;
+  color: #fff;
+  -webkit-text-size-adjust: 100%;
+}
+
+#__next {
+  position: relative;
+  z-index: 0;
+}
+
+button {
+  cursor: default;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+kbd {
+  font-family: var(--font-inter);
+  width: 24px;
+  height: 24px;
+  font-weight: 400;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: hsla(0, 0%, 100%, 0.1);
+  color: hsla(0, 0%, 100%, 0.6);
+
+  &[data-variant="small"] {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    background-color: hsla(0, 0%, 100%, 0.3);
+    color: hsla(0, 0%, 100%, 0.9);
+  }
+}
+
+.selection-area {
+  background: rgba(86, 194, 255, 0.15);
+  border: 1px solid #56c2ff;
+  border-radius: 2px;
+}
