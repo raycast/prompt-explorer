@@ -8,8 +8,8 @@ import {
   ChevronDownIcon,
   ClipboardIcon,
   DownloadIcon,
-  PlusCircle,
-  SnippetsIcon,
+  PlusCircleIcon,
+  StarsIcon,
 } from "../components/Icons";
 import {
   DropdownMenu,
@@ -68,7 +68,7 @@ export default function Home() {
       isShared: true,
       prompts: sharedPromptsInURL,
       slug: "/shared",
-      icon: SnippetsIcon,
+      icon: StarsIcon,
     },
   ];
 
@@ -264,7 +264,7 @@ export default function Home() {
               disabled={selectedPromptsConfig.length === 0}
               onClick={() => handleAddToRaycast()}
             >
-              <PlusCircle /> Add to Raycast
+              <PlusCircleIcon /> Add to Raycast
             </Button>
 
             <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
@@ -341,11 +341,10 @@ export default function Home() {
                       <promptGroup.icon /> {promptGroup.name}
                     </h2>
                     <div
-                      className={styles.snippets}
+                      className={styles.prompts}
                       data-grid={promptGroup.gridCols}
                     >
                       {promptGroup.prompts.map((prompt, index) => {
-                        console.log(selectedPrompts);
                         return (
                           <div
                             className={`${styles.item} selectable`}
@@ -356,7 +355,7 @@ export default function Home() {
                             )}
                             data-key={`${promptGroup.slug}-${index}`}
                           >
-                            <div className={styles.snippet}>
+                            <div className={styles.prompt}>
                               <ScrollArea>
                                 <pre className={styles.template}>
                                   {prompt.instruction}

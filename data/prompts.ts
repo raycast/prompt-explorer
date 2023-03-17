@@ -1,10 +1,10 @@
 import { nanoid } from "nanoid";
 import {
   CodeBlockIcon,
-  GameController,
+  GameControllerIcon,
   SpeechBubbleIcon,
-  Stars,
-  Text,
+  StarsIcon,
+  TextIcon,
 } from "../components/Icons";
 
 export type Command = {
@@ -146,6 +146,22 @@ const code: Command[] = [
     creativity: "medium",
     model: "code",
   },
+  {
+    id: nanoid(),
+    title: "Add Debug Statements",
+    instruction:
+      "Act as a software engineer debugging its code. Add debug statements to the code. Add as many as necessary to make debugging easier.",
+    creativity: "medium",
+    model: "code",
+  },
+  {
+    id: nanoid(),
+    title: "Remove Debug Statements",
+    instruction:
+      "Act as a software engineer cleaning its code. Remove every debug statements from the code.",
+    creativity: "medium",
+    model: "code",
+  },
 ];
 
 const creativity: Command[] = [
@@ -251,6 +267,15 @@ const text: Command[] = [
     creativity: "medium",
     model: "code",
   },
+  // Idea from the community: https://raycastcommunity.slack.com/archives/C04R45E5FV1/p1678984675086069
+  {
+    id: nanoid(),
+    title: "Emoji Suggestion",
+    instruction:
+      "Suggest emojis that summarize, resemble (parts or words of) or are otherwise related to the text, suggest around 10, up to 30 (if there are that many, for example for input 'animal' you may want to list all animal emojis), no duplicates, and order them by relevance. Only respond with emojis, no other text or charachters, don't autocomplete the text.",
+    creativity: "medium",
+    model: "code",
+  },
 ];
 
 type Category = {
@@ -281,20 +306,20 @@ export const categories: Category[] = [
     slug: "/creativity",
     gridCols: 4,
     commands: [...creativity],
-    icon: Stars,
+    icon: StarsIcon,
   },
   {
     name: "Text",
     slug: "/text",
     gridCols: 4,
     commands: [...text],
-    icon: Text,
+    icon: TextIcon,
   },
   {
     name: "Fun",
     slug: "/fun",
     gridCols: 4,
     commands: [...characters],
-    icon: GameController,
+    icon: GameControllerIcon,
   },
 ];

@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import React from "react";
 import NextLink from "next/link";
 import SelectionArea, { SelectionEvent } from "@viselect/react";
@@ -7,20 +6,19 @@ import copy from "copy-to-clipboard";
 import {
   ChevronDownIcon,
   CircleIcon,
-  CircleProgress100,
-  CircleProgress25,
-  CircleProgress50,
-  CircleProgress75,
+  CircleProgress100Icon,
+  CircleProgress25Icon,
+  CircleProgress50Icon,
+  CircleProgress75Icon,
   ClipboardIcon,
   CodeBlockIcon,
-  CogIcon,
   DownloadIcon,
   LinkIcon,
-  PlusCircle,
+  PlusCircleIcon,
   RaycastLogoIcon,
-  SnippetsIcon,
   SpeechBubbleIcon,
-  Trash,
+  StarsIcon,
+  TrashIcon,
 } from "../components/Icons";
 import {
   Dialog,
@@ -36,7 +34,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "../components/DropdownMenu";
-import { SnippetLogo } from "../components/SnippetLogo";
+import { PromptLogo } from "../components/PromptLogo";
 import { Toast, ToastTitle } from "../components/Toast";
 import { ScrollArea } from "../components/ScrollArea";
 import { Button } from "../components/Button";
@@ -277,7 +275,7 @@ export default function Home({ onTouchReady }) {
         <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
           <DialogTrigger asChild>
             <button style={{ all: "unset" }}>
-              <SnippetLogo />
+              <PromptLogo />
             </button>
           </DialogTrigger>
           <DialogContent className={styles.about}>
@@ -285,7 +283,7 @@ export default function Home({ onTouchReady }) {
               <div>
                 <DialogTitle className={styles.dialogTitle}>About</DialogTitle>
                 <DialogDescription className={styles.dialogDescription}>
-                  Prompts Explorer is a tool to easily browse and import AI
+                  Prompt Explorer is a tool to easily browse and import AI
                   Commands directly to <a href="https://raycast.com">Raycast</a>
                   .
                 </DialogDescription>
@@ -407,7 +405,7 @@ export default function Home({ onTouchReady }) {
                 disabled={selectedCommandsConfig.length === 0}
                 onClick={() => handleAddToRaycast()}
               >
-                <PlusCircle /> Add to Raycast
+                <PlusCircleIcon /> Add to Raycast
               </Button>
 
               <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
@@ -525,7 +523,7 @@ export default function Home({ onTouchReady }) {
                                 );
                               }}
                             >
-                              <Trash />
+                              <TrashIcon />
                             </button>
                           </div>
                         ))}
@@ -579,7 +577,7 @@ export default function Home({ onTouchReady }) {
                       <category.icon size={16} /> {category.name}
                     </h2>
                     <div
-                      className={styles.snippets}
+                      className={styles.prompts}
                       data-grid={category.gridCols}
                     >
                       {category.commands.map((command, index) => {
@@ -593,7 +591,7 @@ export default function Home({ onTouchReady }) {
                             )}
                             data-key={`${category.slug}-${index}`}
                           >
-                            <div className={styles.snippet}>
+                            <div className={styles.prompt}>
                               <ScrollArea>
                                 <pre className={styles.template}>
                                   {command.instruction}
@@ -639,19 +637,19 @@ function CreativityIcon({ creativity }: { creativity: Command["creativity"] }) {
   }
 
   if (creativity === "low") {
-    return <CircleProgress25 />;
+    return <CircleProgress25Icon />;
   }
 
   if (creativity === "medium") {
-    return <CircleProgress50 />;
+    return <CircleProgress50Icon />;
   }
 
   if (creativity === "high") {
-    return <CircleProgress75 />;
+    return <CircleProgress75Icon />;
   }
 
   if (creativity === "maximum") {
-    return <CircleProgress100 />;
+    return <CircleProgress100Icon />;
   }
 }
 
@@ -665,7 +663,7 @@ function NavItem({ category }) {
       className={styles.sidebarNavItem}
       data-active={activeSection === category.slug}
     >
-      {category.icon ? <category.icon /> : <SnippetsIcon />}
+      {category.icon ? <category.icon /> : <StarsIcon />}
 
       {category.name}
       <span className={styles.badge}>{category.commands.length}</span>
