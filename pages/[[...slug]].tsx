@@ -275,7 +275,10 @@ export default function Home({ onTouchReady }) {
         <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
           <DialogTrigger asChild>
             <button style={{ all: "unset" }}>
-              <PromptLogo />
+              <div className={styles.logo}>
+                <PromptLogo />
+                <h2>Prompt Explorer</h2>
+              </div>
             </button>
           </DialogTrigger>
           <DialogContent className={styles.about}>
@@ -362,8 +365,8 @@ export default function Home({ onTouchReady }) {
             <p className={styles.dialogDescription}>
               This project is Open Source and{" "}
               <a
-                href="https://github.com/raycast/prompts-explorer"
-                title="Prompts Explorer on GitHub"
+                href="https://github.com/raycast/prompt-explorer"
+                title="Prompt Explorer on GitHub"
               >
                 available on GitHub
               </a>

@@ -5,16 +5,13 @@
   </a> 
 </p>
 <h1 align="center">
-  Prompts Explorer
+  Prompt Explorer
 </h1>
 <h3 align="center">
   prompts.ray.so
 </h3>
 <p align="center">
   A tool to easily browse and import AI Commands directly to Raycast.
-</p>
-<p align="center">
-  Then, click the “Add to Raycast” button. You can also download the AI Commands as a JSON file, or copy the URL to share with others.
 </p>
 
 <!-- TEXT_SECTION:header:END -->
@@ -23,9 +20,9 @@
 
 ## Contributing
 
-This is a [Next.js](https://nextjs.org/). If you're unfamiliar with it, check out the [Next.js Documentation](https://nextjs.org/docs).
+This is a [Next.js](https://nextjs.org/) project. If you're unfamiliar with it, check out the [Next.js Documentation](https://nextjs.org/docs).
 
-Download the repo and run the development server:
+To get started, download the repo and run the development server:
 
 ```bash
 npm run dev
@@ -38,4 +35,4 @@ We welcome contribution to the prompts data. Here's how you can contribute:
 - Open `./data/prompts.ts`
 - Add your prompt to the relevant category
   - Ensure it includes all fields, and that they're unique within its category
-- Create a Pull Request 🚀
+- Create a pull request 🚀
