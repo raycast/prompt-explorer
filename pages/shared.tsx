@@ -7,8 +7,10 @@ import { nanoid } from "nanoid";
 import {
   ChevronDownIcon,
   ClipboardIcon,
+  CodeBlockIcon,
   DownloadIcon,
   PlusCircleIcon,
+  SpeechBubbleIcon,
   StarsIcon,
 } from "../components/Icons";
 import {
@@ -25,9 +27,11 @@ import { ButtonGroup } from "../components/ButtonGroup";
 import { isTouchDevice } from "../utils/isTouchDevice";
 import styles from "../styles/Home.module.css";
 import buttonStyles from "../components/Button.module.css";
+import { Command } from "../data/prompts";
+import CreativityIcon from "../components/CreativityIcon";
 
 const raycastProtocolForEnvironments = {
-  development: "raycastinternal",
+  development: "raycastdebug",
   production: "raycast",
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
@@ -35,7 +39,7 @@ const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 export default function Home() {
   const router = useRouter();
 
-  const [selectedPrompts, setSelectedPrompts] = React.useState([]);
+  const [selectedPrompts, setSelectedPrompts] = React.useState<Command[]>([]);
   const [copied, setCopied] = React.useState(false);
 
   const [actionsOpen, setActionsOpen] = React.useState(false);
@@ -362,7 +366,21 @@ export default function Home() {
                                 </pre>
                               </ScrollArea>
                             </div>
-                            <span className={styles.name}>{prompt.title}</span>
+                            <div className={styles.nameContainer}>
+                              <span className={styles.name}>
+                                {prompt.title}
+                              </span>
+                              <div className={styles.icons}>
+                                <CreativityIcon
+                                  creativity={prompt.creativity}
+                                />
+                                {prompt.model === "code" ? (
+                                  <CodeBlockIcon />
+                                ) : (
+                                  <SpeechBubbleIcon />
+                                )}
+                              </div>
+                            </div>
                           </div>
                         );
                       })}

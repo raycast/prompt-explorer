@@ -5,11 +5,6 @@ import { useRouter } from "next/router";
 import copy from "copy-to-clipboard";
 import {
   ChevronDownIcon,
-  CircleIcon,
-  CircleProgress100Icon,
-  CircleProgress25Icon,
-  CircleProgress50Icon,
-  CircleProgress75Icon,
   ClipboardIcon,
   CodeBlockIcon,
   DownloadIcon,
@@ -47,9 +42,10 @@ import { categories, Command } from "../data/prompts";
 import styles from "../styles/Home.module.css";
 import { Instructions } from "../components/Instructions";
 import { useSectionInView } from "../utils/useSectionInViewObserver";
+import CreativityIcon from "../components/CreativityIcon";
 
 const raycastProtocolForEnvironments = {
-  development: "raycastinternal",
+  development: "raycastdebug",
   production: "raycast",
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
@@ -79,11 +75,10 @@ export async function getStaticProps() {
 export default function Home({ onTouchReady }) {
   const router = useRouter();
 
-  const [selectedCommands, setSelectedCommands] = React.useState([]);
+  const [selectedCommands, setSelectedCommands] = React.useState<Command[]>([]);
   const [copied, setCopied] = React.useState(false);
 
   const [actionsOpen, setActionsOpen] = React.useState(false);
-  const [settingsOpen, setSettingsOpen] = React.useState(false);
   const [aboutOpen, setAboutOpen] = React.useState(false);
   const [isTouch, setIsTouch] = React.useState(null);
 
@@ -152,9 +147,10 @@ export default function Home({ onTouchReady }) {
   const makeQueryString = React.useCallback(() => {
     const queryString = selectedCommandsConfig
       .map((command) => {
-        const { title, instruction } = command;
+        const { title, instruction, creativity, model } = command;
+
         return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, instruction })
+          JSON.stringify({ title, instruction, creativity, model })
         )}`;
       })
       .join("&");
@@ -234,13 +230,11 @@ export default function Home({ onTouchReady }) {
         event.preventDefault();
         setActionsOpen(false);
         setAboutOpen(false);
-        setSettingsOpen((prevOpen) => !prevOpen);
       }
 
       if (key === "/" && metaKey) {
         event.preventDefault();
         setActionsOpen(false);
-        setSettingsOpen(false);
         setAboutOpen((prevOpen) => !prevOpen);
       }
 
@@ -632,28 +626,6 @@ export default function Home({ onTouchReady }) {
       </div>
     </div>
   );
-}
-
-function CreativityIcon({ creativity }: { creativity: Command["creativity"] }) {
-  if (creativity === "none") {
-    return <CircleIcon />;
-  }
-
-  if (creativity === "low") {
-    return <CircleProgress25Icon />;
-  }
-
-  if (creativity === "medium") {
-    return <CircleProgress50Icon />;
-  }
-
-  if (creativity === "high") {
-    return <CircleProgress75Icon />;
-  }
-
-  if (creativity === "maximum") {
-    return <CircleProgress100Icon />;
-  }
 }
 
 function NavItem({ category }) {

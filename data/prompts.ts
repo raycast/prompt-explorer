@@ -130,6 +130,15 @@ const code: Command[] = [
     creativity: "high",
     model: "code",
   },
+  // Inspired from https://beebom.com/best-chatgpt-prompts/
+  {
+    id: nanoid(),
+    title: "Act as a Python Interpreter",
+    instruction:
+      "I want you to act like a Python interpreter. Execute the selected text which is Python code. Do not provide any explanations. Do not respond with anything except the output of the code.",
+    creativity: "high",
+    model: "code",
+  },
   {
     id: nanoid(),
     title: "Find Me the Git Command",
@@ -146,6 +155,15 @@ const code: Command[] = [
     creativity: "medium",
     model: "code",
   },
+  {
+    id: nanoid(),
+    title: "Regex Generator",
+    instruction:
+      "Generate regular expressions that match specific patterns in the selected text. Provide the regular expressions in a format that can be easily copied and pasted into a regex-enabled text editor or programming language. Then, give clear and understandable explanations on what the regex is doing and how it is constructed.",
+    creativity: "medium",
+    model: "code",
+  },
+
   {
     id: nanoid(),
     title: "Add Debug Statements",
@@ -190,7 +208,7 @@ const creativity: Command[] = [
   },
   {
     id: nanoid(),
-    title: "Come up with Jokes",
+    title: "Come Up With Jokes",
     instruction: "Come up with a series of jokes.",
     creativity: "medium",
     model: "text",
@@ -203,6 +221,46 @@ const creativity: Command[] = [
     creativity: "high",
     model: "text",
   },
+  // Inspired from https://beebom.com/best-chatgpt-prompts/
+  {
+    id: nanoid(),
+    title: "Write a Blog Post",
+    instruction: "Write a 500-word blog post on this topic.",
+    creativity: "medium",
+    model: "text",
+  },
+  // Inspired from https://beebom.com/best-chatgpt-prompts/
+  {
+    id: nanoid(),
+    title: "Write a Rap",
+    instruction:
+      "I want you to act as a rapper. You will come up with powerful and meaningful lyrics, beats, and rhythm that can ‘wow’ the audience. Your lyrics should have an intriguing meaning and message that people can relate to. When it comes to choosing your beat, make sure it is catchy yet relevant to your words, so that when combined they make an explosion of sound every time.",
+    creativity: "high",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "Midjourney Prompt Generator",
+    instruction: `Generate an "imagine prompt" that contains a maximum word count of 1,500 words that will be used as input for an AI-based text to image program called MidJourney based on the following parameters: /imagine prompt: [1], [2], [3], [4], [5], [6]
+    
+In this prompt, [1] should be replaced with a random subject and [2] should be a short concise description about that subject. Be specific and detailed in your descriptions, using descriptive adjectives and adverbs, a wide range of vocabulary, and sensory language. Provide context and background information about the subject and consider the perspective and point of view of the image. Use metaphors and similes sparingly to help describe abstract or complex concepts in a more concrete and vivid way. Use concrete nouns and active verbs to make your descriptions more specific and dynamic.
+    
+[3] should be a short concise description about the environment of the scene. Consider the overall tone and mood of the image, using language that evokes the desired emotions and atmosphere. Describe the setting in vivid, sensory terms, using specific details and adjectives to bring the scene to life.
+    
+[4] should be a short concise description about the mood of the scene. Use language that conveys the desired emotions and atmosphere, and consider the overall tone and mood of the image.
+    
+[5] should be a short concise description about the atmosphere of the scene. Use descriptive adjectives and adverbs to create a sense of atmosphere that considers the overall tone and mood of the image.
+    
+[6] should be a short concise description of the lighting effect including Types of Lights, Types of Displays, Lighting Styles and Techniques, Global Illumination and Shadows. Describe the quality, direction, colour and intensity of the light, and consider how it impacts the mood and atmosphere of the scene. Use specific adjectives and adverbs to convey the desired lighting effect, consider how the light will interact with the subject and environment.
+    
+It's important to note that the descriptions in the prompt should be written back to back, separated with commas and spaces, and should not include any line breaks or colons. Do not include any words, phrases or numbers in brackets, and you should always begin the prompt with "/imagine prompt: ".
+    
+Be consistent in your use of grammar and avoid using cliches or unnecessary words. Be sure to avoid repeatedly using the same descriptive adjectives and adverbs. Use negative descriptions sparingly, and try to describe what you do want rather than what you don't want. Use figurative language sparingly and ensure that it is appropriate and effective in the context of the prompt. Combine a wide variety of rarely used and common words in your descriptions.
+    
+The "imagine prompt" should strictly contain under 1,500 words. Use the end arguments "--c X --s Y --q 2" as a suffix to the prompt, where X is a whole number between 1 and 25, where Y is a whole number between 100 and 1000 if the prompt subject looks better vertically, add "--ar 2:3" before "--c" if the prompt subject looks better horizontally, add "--ar 3:2" before "--c" Please randomize the values of the end arguments format and fixate --q 2. Please do not use double quotation marks or punctuation marks. Please use randomized end suffix format.`,
+    creativity: "high",
+    model: "text",
+  },
 ];
 
 const characters: Command[] = [
@@ -211,7 +269,7 @@ const characters: Command[] = [
     id: nanoid(),
     title: "Act as Yoda",
     instruction:
-      "I want you to act like Yoda from Star Wars. I want you to respond and answer like Yoda using the tone, manner and vocabulary Yoda would use. Do not write any explanations. Only answer like Yoda. You must know all of the knowledge of Yoda.",
+      "I want you to act like Yoda from Star Wars is executing order 66. I want you to respond and answer like Yoda using the tone, manner and vocabulary Yoda would use. Do not write any explanations. Only answer like Yoda. You must know all of the knowledge of Yoda.",
     creativity: "high",
     model: "text",
   },
@@ -275,6 +333,42 @@ const text: Command[] = [
       "Suggest emojis that summarize, resemble (parts or words of) or are otherwise related to the text, suggest around 10, up to 30 (if there are that many, for example for input 'animal' you may want to list all animal emojis), no duplicates, and order them by relevance. Only respond with emojis, no other text or charachters, don't autocomplete the text.",
     creativity: "medium",
     model: "code",
+  },
+  {
+    id: nanoid(),
+    title: "Find Synonyms",
+    instruction:
+      "Find synonyms for the given word. Words should exist. Do not write any explanations. Only answer with synonyms.",
+    creativity: "medium",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "Give Me a Recipe",
+    instruction: "Give me a recipe based on the ingredients I have.",
+    creativity: "medium",
+    model: "text",
+  },
+];
+
+// TODO: Create misc category
+
+const fun: Command[] = [
+  {
+    id: nanoid(),
+    title: "DrunkGPT",
+    instruction:
+      "Answer to the text like you were drunk. Your answers should be incoherent. Don't add 'hic' or 'hiccup' in your answer.",
+    creativity: "high",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "Playlist Maker",
+    instruction:
+      "Act as a song recommender. Based on the selected song, create a playlist of 10 similar songs. Provide a name and description for the playlist. Do not choose songs that are same name or artist. Do not include the original song in the playlist.",
+    creativity: "high",
+    model: "text",
   },
 ];
 
