@@ -107,7 +107,6 @@ export default function Home({ onTouchReady }) {
       const commandCategory = categories.find(
         (category) => category.slug === slug
       );
-      console.log(categories, slug, index);
       return commandCategory.commands[index];
     });
 
@@ -138,8 +137,8 @@ export default function Home({ onTouchReady }) {
   const makeCommandsImportData = React.useCallback(() => {
     return `[${selectedCommandsConfig
       .map((command) => {
-        const { title, instruction } = command;
-        return JSON.stringify({ title, instruction });
+        const { title, instruction, creativity, model } = command;
+        return JSON.stringify({ title, instruction, creativity, model });
       })
       .join(",")}]`;
   }, [selectedCommandsConfig]);
