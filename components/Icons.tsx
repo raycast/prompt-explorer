@@ -335,19 +335,19 @@ export const GameControllerIcon = ({ size = 16 }) => (
   >
     <path
       d="M10.5 8C10.5 8.27614 10.2761 8.5 10 8.5C9.72386 8.5 9.5 8.27614 9.5 8C9.5 7.72386 9.72386 7.5 10 7.5C10.2761 7.5 10.5 7.72386 10.5 8Z"
-      stroke="white"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M6.5 8C6.5 8.27614 6.27614 8.5 6 8.5C5.72386 8.5 5.5 8.27614 5.5 8C5.5 7.72386 5.72386 7.5 6 7.5C6.27614 7.5 6.5 7.72386 6.5 8Z"
-      stroke="white"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M8 3.75V1.75M10.5016 12.2006L10.7372 12.9965C10.9568 13.7384 11.6595 14.25 12.459 14.25C13.5319 14.25 14.364 13.3456 14.2372 12.3173L13.7243 8.15894C13.4141 5.6439 11.2044 3.75 8.58014 3.75H7.41986C4.79564 3.75 2.58593 5.6439 2.27571 8.15893L1.7628 12.3173C1.63597 13.3456 2.46806 14.25 3.54097 14.25C4.34049 14.25 5.04315 13.7384 5.2628 12.9965L5.49841 12.2006C5.75258 11.342 6.56568 11.75 7.49087 11.75H8.50913C9.43432 11.75 10.2474 11.342 10.5016 12.2006Z"
-      stroke="white"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -355,7 +355,7 @@ export const GameControllerIcon = ({ size = 16 }) => (
   </svg>
 );
 
-export const TextIcon = ({ size = 16 }) => (
+export const MusicIcon = ({ size = 16 }) => (
   <svg
     width={size}
     height={size}
@@ -364,9 +364,69 @@ export const TextIcon = ({ size = 16 }) => (
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
-      d="M2.75 4.25V2.75H13.25V4.25M8 3V13.25M6.75 13.25H9.25"
-      stroke="white"
+      d="M5.25 12.5C5.25 13.4665 4.4665 14.25 3.5 14.25C2.5335 14.25 1.75 13.4665 1.75 12.5C1.75 11.5335 2.5335 10.75 3.5 10.75C4.4665 10.75 5.25 11.5335 5.25 12.5ZM5.25 12.5V4.78078C5.25 4.32191 5.5623 3.92193 6.00746 3.81064L13.0075 2.06063C13.6386 1.90285 14.25 2.38021 14.25 3.03078V10.5M14.25 10.5C14.25 11.4665 13.4665 12.25 12.5 12.25C11.5335 12.25 10.75 11.4665 10.75 10.5C10.75 9.5335 11.5335 8.75 12.5 8.75C13.4665 8.75 14.25 9.5335 14.25 10.5Z"
+      stroke="currentColor"
       strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const FolderIcon = ({ size = 16 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1.75 4.75L13.25 4.75M13.25 4.75C13.8023 4.75 14.25 5.19772 14.25 5.75L14.25 12.25C14.25 13.3546 13.3546 14.25 12.25 14.25L3.75 14.25C2.64543 14.25 1.75 13.3546 1.75 12.25L1.75 3.75C1.75 2.64543 2.64543 1.75 3.75 1.75L6.09246 1.75C6.66919 1.75 7.21784 1.99896 7.59762 2.43299L9.32619 4.4085C9.51608 4.62552 9.7904 4.75 10.0788 4.75L13.25 4.75Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const WritingIcon = ({ size = 16 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M9.32389 3.32389L12.6761 6.67611M5.93016 13.2666L13.5245 5.84728C14.4742 4.91945 14.4831 3.39459 13.5442 2.45575V2.45575C12.6054 1.51692 11.0805 1.52581 10.1527 2.47552L2.73336 10.0698L1.75 14.25L5.93016 13.2666Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+export const ImageIcon = ({ size = 16 }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M1.75 12.25L4.05644 9.49013C4.48148 8.98153 5.25274 8.99493 5.66074 9.51801V9.51801C6.3328 10.3796 7.62444 10.413 8.34011 9.58724L10.4882 7.10862C10.8482 6.69331 11.4584 6.63031 11.8918 6.9637L14.25 8.77774M3.75 14.25H12.25C13.3546 14.25 14.25 13.3546 14.25 12.25V3.75C14.25 2.64543 13.3546 1.75 12.25 1.75H3.75C2.64543 1.75 1.75 2.64543 1.75 3.75V12.25C1.75 13.3546 2.64543 14.25 3.75 14.25Z"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+    <path
+      d="M5.25 4.75C5.25 5.02614 5.02614 5.25 4.75 5.25C4.47386 5.25 4.25 5.02614 4.25 4.75C4.25 4.47386 4.47386 4.25 4.75 4.25C5.02614 4.25 5.25 4.47386 5.25 4.75Z"
+      stroke="currentColor"
       strokeLinecap="round"
       strokeLinejoin="round"
     />

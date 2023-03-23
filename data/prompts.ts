@@ -1,10 +1,13 @@
 import { nanoid } from "nanoid";
 import {
   CodeBlockIcon,
+  FolderIcon,
   GameControllerIcon,
+  ImageIcon,
+  MusicIcon,
   SpeechBubbleIcon,
   StarsIcon,
-  TextIcon,
+  WritingIcon,
 } from "../components/Icons";
 
 export type Command = {
@@ -112,6 +115,14 @@ const code: Command[] = [
     creativity: "medium",
     model: "code",
   },
+  {
+    id: nanoid(),
+    title: "Refactor Code",
+    instruction:
+      'Act as a software engineer with deep understanding of any programming language. Refactor the code to make it more efficient and maintainable. Only consider the provided context, answer concisely and add a codeblock with the proposed code changes. If you can\'t confidently refactor the code, answer with "LGTM 👍"',
+    creativity: "medium",
+    model: "code",
+  },
   // Inspired from https://showgpt.co/t/css-to-tailwind
   {
     id: nanoid(),
@@ -144,15 +155,7 @@ const code: Command[] = [
     title: "Find Me the Git Command",
     instruction:
       "I want you to find me what's the Git command I'm searching for. I want you to only reply with the terminal output inside one unique code block, and nothing else. Do not write explanations. Do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}.",
-    creativity: "high",
-    model: "code",
-  },
-  {
-    id: nanoid(),
-    title: "Refactor Code",
-    instruction:
-      'Act as a software engineer with deep understanding of any programming language. Refactor the code to make it more efficient and maintainable. Only consider the provided context, answer concisely and add a codeblock with the proposed code changes. If you can\'t confidently refactor the code, answer with "LGTM 👍"',
-    creativity: "medium",
+    creativity: "low",
     model: "code",
   },
   {
@@ -182,15 +185,7 @@ const code: Command[] = [
   },
 ];
 
-const creativity: Command[] = [
-  {
-    id: nanoid(),
-    title: "Create a YouTube Script",
-    instruction:
-      "Create a compelling and captivating YouTube script from the text.",
-    creativity: "maximum",
-    model: "code",
-  },
+const writing: Command[] = [
   {
     id: nanoid(),
     title: "Write a Wikipedia Article",
@@ -206,13 +201,17 @@ const creativity: Command[] = [
     creativity: "high",
     model: "text",
   },
+  // Inspired from https://beebom.com/best-chatgpt-prompts/
   {
     id: nanoid(),
-    title: "Come Up With Jokes",
-    instruction: "Come up with a series of jokes.",
+    title: "Write a Blog Post",
+    instruction: "Write a 500-word blog post on this topic.",
     creativity: "medium",
     model: "text",
   },
+];
+
+const music: Command[] = [
   {
     id: nanoid(),
     title: "Write a Song",
@@ -224,19 +223,22 @@ const creativity: Command[] = [
   // Inspired from https://beebom.com/best-chatgpt-prompts/
   {
     id: nanoid(),
-    title: "Write a Blog Post",
-    instruction: "Write a 500-word blog post on this topic.",
-    creativity: "medium",
-    model: "text",
-  },
-  // Inspired from https://beebom.com/best-chatgpt-prompts/
-  {
-    id: nanoid(),
     title: "Write a Rap",
     instruction:
       "I want you to act as a rapper. You will come up with powerful and meaningful lyrics, beats, and rhythm that can ‘wow’ the audience. Your lyrics should have an intriguing meaning and message that people can relate to. When it comes to choosing your beat, make sure it is catchy yet relevant to your words, so that when combined they make an explosion of sound every time.",
     creativity: "high",
     model: "text",
+  },
+];
+
+const image: Command[] = [
+  {
+    id: nanoid(),
+    title: "Create a YouTube Script",
+    instruction:
+      "Create a compelling and captivating YouTube script from the text.",
+    creativity: "maximum",
+    model: "code",
   },
   {
     id: nanoid(),
@@ -284,7 +286,7 @@ const characters: Command[] = [
   },
 ];
 
-const text: Command[] = [
+const misc: Command[] = [
   // Inspired from AIPRM (https://chrome.google.com/webstore/detail/aiprm-for-chatgpt/ojnbohmppadfgpejeebfnmnknjdlckgj/related)
   {
     id: nanoid(),
@@ -351,8 +353,6 @@ const text: Command[] = [
   },
 ];
 
-// TODO: Create misc category
-
 const fun: Command[] = [
   {
     id: nanoid(),
@@ -368,6 +368,13 @@ const fun: Command[] = [
     instruction:
       "Act as a song recommender. Based on the selected song, create a playlist of 10 similar songs. Provide a name and description for the playlist. Do not choose songs that are same name or artist. Do not include the original song in the playlist.",
     creativity: "high",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "Come Up With Jokes",
+    instruction: "Come up with a series of jokes.",
+    creativity: "medium",
     model: "text",
   },
 ];
@@ -396,24 +403,38 @@ export const categories: Category[] = [
     icon: CodeBlockIcon,
   },
   {
-    name: "Creativity",
-    slug: "/creativity",
+    name: "Image",
+    slug: "/image",
     gridCols: 4,
-    commands: [...creativity],
-    icon: StarsIcon,
+    commands: [...image],
+    icon: ImageIcon,
   },
   {
-    name: "Text",
-    slug: "/text",
+    name: "Writing",
+    slug: "/writing",
     gridCols: 4,
-    commands: [...text],
-    icon: TextIcon,
+    commands: [...writing],
+    icon: WritingIcon,
+  },
+  {
+    name: "Music",
+    slug: "/music",
+    gridCols: 4,
+    commands: [...music],
+    icon: MusicIcon,
   },
   {
     name: "Fun",
     slug: "/fun",
     gridCols: 4,
-    commands: [...characters],
+    commands: [...characters, ...fun],
     icon: GameControllerIcon,
+  },
+  {
+    name: "Misc",
+    slug: "/misc",
+    gridCols: 4,
+    commands: [...misc],
+    icon: FolderIcon,
   },
 ];
