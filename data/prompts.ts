@@ -1,12 +1,12 @@
 import { nanoid } from "nanoid";
 import {
   CodeBlockIcon,
+  EnvelopeIcon,
   FolderIcon,
   GameControllerIcon,
   ImageIcon,
   MusicIcon,
   SpeechBubbleIcon,
-  StarsIcon,
   WritingIcon,
 } from "../components/Icons";
 
@@ -231,6 +231,45 @@ const music: Command[] = [
   },
 ];
 
+const communication: Command[] = [
+  {
+    id: nanoid(),
+    title: "Decline this Mail",
+    instruction:
+      "Write a polite and friendly email to decline this email. The email should be written in a way that it can be sent to the recipient.",
+    creativity: "low",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "Ask Question",
+    instruction:
+      "Rewrite the selected text as a concise and friendly message, phrased as a question. This should be written in a way that it can be sent in a chat application.",
+    creativity: "low",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "New LinkedIn Connection",
+    instruction:
+      "Transform the selected text into a personalized and engaging LinkedIn message to be sent to a new connection.",
+    creativity: "medium",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "BLUF Message",
+    instruction: `Rewrite the selected text as a BLUF (bottom line up front) Markdown message. The format of the message should be made of two parts:
+    
+- The first part should be written in bold and convey the message's key information. It can either be a statement or a question. Don't lose any important detail in this part.
+- The second part should be put onto a new line. This should give more details and provide some background about the message.
+
+Make sure the message stays concise and clear so that readers don't lose extra time reading it.`,
+    creativity: "low",
+    model: "text",
+  },
+];
+
 const image: Command[] = [
   {
     id: nanoid(),
@@ -377,6 +416,20 @@ const fun: Command[] = [
     creativity: "medium",
     model: "text",
   },
+  {
+    id: nanoid(),
+    title: "Explain This in Simple Terms",
+    instruction: "Explain this in simple terms.",
+    creativity: "low",
+    model: "text",
+  },
+  {
+    id: nanoid(),
+    title: "Write 10 Alternatives",
+    instruction: "Give me 10 alternative versions.",
+    creativity: "high",
+    model: "text",
+  },
 ];
 
 type Category = {
@@ -401,6 +454,13 @@ export const categories: Category[] = [
     gridCols: 4,
     commands: [...code],
     icon: CodeBlockIcon,
+  },
+  {
+    name: "Communication",
+    slug: "/communication",
+    gridCols: 4,
+    commands: [...communication],
+    icon: EnvelopeIcon,
   },
   {
     name: "Image",
