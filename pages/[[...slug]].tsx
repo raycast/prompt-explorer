@@ -3,18 +3,7 @@ import NextLink from "next/link";
 import SelectionArea, { SelectionEvent } from "@viselect/react";
 import { useRouter } from "next/router";
 import copy from "copy-to-clipboard";
-import {
-  ChevronDownIcon,
-  ClipboardIcon,
-  CodeBlockIcon,
-  DownloadIcon,
-  LinkIcon,
-  PlusCircleIcon,
-  RaycastLogoIcon,
-  SpeechBubbleIcon,
-  StarsIcon,
-  TrashIcon,
-} from "../components/Icons";
+import { Icon, RaycastLogoIcon } from "../components/Icon";
 import {
   Dialog,
   DialogContent,
@@ -274,7 +263,7 @@ export default function Home({ onTouchReady }) {
               </div>
             </button>
           </DialogTrigger>
-          <DialogContent className={styles.about}>
+          <DialogContent className={styles.about} showCloseButton={true}>
             <div className={styles.aboutTopContent}>
               <div>
                 <DialogTitle className={styles.dialogTitle}>About</DialogTitle>
@@ -401,7 +390,7 @@ export default function Home({ onTouchReady }) {
                 disabled={selectedCommandsConfig.length === 0}
                 onClick={() => handleAddToRaycast()}
               >
-                <PlusCircleIcon /> Add to Raycast
+                <Icon.PlusCircle /> Add to Raycast
               </Button>
 
               <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
@@ -411,7 +400,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     aria-label="Export options"
                   >
-                    <ChevronDownIcon />
+                    <Icon.ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -419,7 +408,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     onSelect={() => handleDownload()}
                   >
-                    <DownloadIcon /> Download JSON
+                    <Icon.Download /> Download JSON
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>D</kbd>
@@ -429,7 +418,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     onSelect={() => handleCopyData()}
                   >
-                    <ClipboardIcon /> Copy JSON{" "}
+                    <Icon.CopyClipboard /> Copy JSON{" "}
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>⌥</kbd>
@@ -440,7 +429,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     onSelect={() => handleCopyUrl()}
                   >
-                    <LinkIcon /> Copy URL to share{" "}
+                    <Icon.Link /> Copy URL to share{" "}
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>⇧</kbd>
@@ -458,7 +447,7 @@ export default function Home({ onTouchReady }) {
               disabled={selectedCommandsConfig.length === 0}
               onClick={() => handleCopyUrl()}
             >
-              <LinkIcon /> Copy URL to share
+              <Icon.Link /> Copy URL to share
             </Button>
           )}
         </div>
@@ -466,7 +455,7 @@ export default function Home({ onTouchReady }) {
 
       <Toast open={copied} onOpenChange={setCopied}>
         <ToastTitle className={styles.toastTitle}>
-          <ClipboardIcon /> Copied to clipboard
+          <Icon.CopyClipboard /> Copied to clipboard
         </ToastTitle>
       </Toast>
 
@@ -497,7 +486,7 @@ export default function Home({ onTouchReady }) {
                             ? "Commands"
                             : "Command"}{" "}
                           selected
-                          <ChevronDownIcon />
+                          <Icon.ChevronDown />
                         </button>
                       </Collapsible.Trigger>
 
@@ -519,7 +508,7 @@ export default function Home({ onTouchReady }) {
                                 );
                               }}
                             >
-                              <TrashIcon />
+                              <Icon.Trash />
                             </button>
                           </div>
                         ))}
@@ -570,7 +559,7 @@ export default function Home({ onTouchReady }) {
                     tabIndex={-1}
                   >
                     <h2 className={styles.subtitle}>
-                      <category.icon size={16} /> {category.name}
+                      <category.icon /> {category.name}
                     </h2>
                     <div
                       className={styles.prompts}
@@ -603,9 +592,9 @@ export default function Home({ onTouchReady }) {
                                   creativity={command.creativity}
                                 />
                                 {command.model === "code" ? (
-                                  <CodeBlockIcon />
+                                  <Icon.CodeBlock />
                                 ) : (
-                                  <SpeechBubbleIcon />
+                                  <Icon.SpeechBubble />
                                 )}
                               </div>
                             </div>
@@ -637,7 +626,7 @@ function NavItem({ category }) {
       className={styles.sidebarNavItem}
       data-active={activeSection === category.slug}
     >
-      {category.icon ? <category.icon /> : <StarsIcon />}
+      {category.icon ? <category.icon /> : <Icon.Stars />}
 
       {category.name}
       <span className={styles.badge}>{category.commands.length}</span>

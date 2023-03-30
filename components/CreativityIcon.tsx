@@ -1,10 +1,4 @@
-import {
-  CircleIcon,
-  CircleProgress100Icon,
-  CircleProgress25Icon,
-  CircleProgress50Icon,
-  CircleProgress75Icon,
-} from "../components/Icons";
+import { Icon } from "./Icon";
 import { Command } from "../data/prompts";
 
 export default function CreativityIcon({
@@ -13,22 +7,22 @@ export default function CreativityIcon({
   creativity: Command["creativity"];
 }) {
   if (creativity === "none") {
-    return <CircleIcon />;
+    return <Icon.Circle />;
   }
 
   if (creativity === "low") {
-    return <CircleProgress25Icon />;
+    return <Icon.CircleProgress25 />;
   }
 
   if (creativity === "medium") {
-    return <CircleProgress50Icon />;
+    return <Icon.CircleProgress50 />;
   }
 
   if (creativity === "high") {
-    return <CircleProgress75Icon />;
+    return <Icon.CircleProgress75 />;
   }
 
   if (creativity === "maximum") {
-    return <CircleProgress100Icon />;
+    return <Icon.CircleProgress100 />;
   }
 }

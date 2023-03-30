@@ -1,0 +1,6 @@
+{
+  "svgProps": {
+    "width": "{props.width || 16}",
+    "height": "{props.height || 16}"
+  }
+}

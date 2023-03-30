@@ -1,14 +1,6 @@
 import { nanoid } from "nanoid";
-import {
-  CodeBlockIcon,
-  EnvelopeIcon,
-  FolderIcon,
-  GameControllerIcon,
-  ImageIcon,
-  MusicIcon,
-  SpeechBubbleIcon,
-  WritingIcon,
-} from "../components/Icons";
+import { Icon } from "../components/Icon";
+import { SVGProps } from "react";
 
 export type Command = {
   id: string;
@@ -437,7 +429,7 @@ type Category = {
   slug: string;
   gridCols: number;
   commands: Command[];
-  icon: ({ size }: { size: number }) => JSX.Element;
+  icon: (props: SVGProps<SVGSVGElement>) => JSX.Element;
 };
 
 export const categories: Category[] = [
@@ -446,55 +438,55 @@ export const categories: Category[] = [
     slug: "/translate",
     gridCols: 4,
     commands: [...translate],
-    icon: SpeechBubbleIcon,
+    icon: Icon.SpeechBubbleActive,
   },
   {
     name: "Code",
     slug: "/code",
     gridCols: 4,
     commands: [...code],
-    icon: CodeBlockIcon,
+    icon: Icon.CodeBlock,
   },
   {
     name: "Communication",
     slug: "/communication",
     gridCols: 4,
     commands: [...communication],
-    icon: EnvelopeIcon,
+    icon: Icon.Envelope,
   },
   {
     name: "Image",
     slug: "/image",
     gridCols: 4,
     commands: [...image],
-    icon: ImageIcon,
+    icon: Icon.Image,
   },
   {
     name: "Writing",
     slug: "/writing",
     gridCols: 4,
     commands: [...writing],
-    icon: WritingIcon,
+    icon: Icon.Pencil,
   },
   {
     name: "Music",
     slug: "/music",
     gridCols: 4,
     commands: [...music],
-    icon: MusicIcon,
+    icon: Icon.Music,
   },
   {
     name: "Fun",
     slug: "/fun",
     gridCols: 4,
     commands: [...characters, ...fun],
-    icon: GameControllerIcon,
+    icon: Icon.GameController,
   },
   {
     name: "Misc",
     slug: "/misc",
     gridCols: 4,
     commands: [...misc],
-    icon: FolderIcon,
+    icon: Icon.Folder,
   },
 ];

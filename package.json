@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "generate:icons": "svgr --typescript --icon --out-dir components/icons assets/icons"
   },
   "dependencies": {
     "@radix-ui/react-alert-dialog": "^1.0.2",
@@ -29,6 +30,7 @@
     "react-markdown": "^8.0.3"
   },
   "devDependencies": {
+    "@svgr/cli": "^7.0.0",
     "@types/node": "18.11.9",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2"

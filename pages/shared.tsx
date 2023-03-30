@@ -4,15 +4,7 @@ import SelectionArea, { SelectionEvent } from "@viselect/react";
 import { useRouter } from "next/router";
 import copy from "copy-to-clipboard";
 import { nanoid } from "nanoid";
-import {
-  ChevronDownIcon,
-  ClipboardIcon,
-  CodeBlockIcon,
-  DownloadIcon,
-  PlusCircleIcon,
-  SpeechBubbleIcon,
-  StarsIcon,
-} from "../components/Icons";
+import { Icon } from "../components/Icon";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,7 +64,7 @@ export default function Home() {
       isShared: true,
       prompts: sharedPromptsInURL,
       slug: "/shared",
-      icon: StarsIcon,
+      icon: Icon.Stars,
     },
   ];
 
@@ -266,7 +258,7 @@ export default function Home() {
               disabled={selectedPromptsConfig.length === 0}
               onClick={() => handleAddToRaycast()}
             >
-              <PlusCircleIcon /> Add to Raycast
+              <Icon.PlusCircle /> Add to Raycast
             </Button>
 
             <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
@@ -276,7 +268,7 @@ export default function Home() {
                   disabled={selectedPromptsConfig.length === 0}
                   aria-label="Export options"
                 >
-                  <ChevronDownIcon />
+                  <Icon.ChevronDown />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent>
@@ -284,7 +276,7 @@ export default function Home() {
                   disabled={selectedPromptsConfig.length === 0}
                   onSelect={() => handleDownload()}
                 >
-                  <DownloadIcon /> Download JSON
+                  <Icon.Download /> Download JSON
                   <span className={styles.hotkeys}>
                     <kbd>⌘</kbd>
                     <kbd>D</kbd>
@@ -294,7 +286,7 @@ export default function Home() {
                   disabled={selectedPromptsConfig.length === 0}
                   onSelect={() => handleCopyData()}
                 >
-                  <ClipboardIcon /> Copy JSON{" "}
+                  <Icon.CopyClipboard /> Copy JSON{" "}
                   <span className={styles.hotkeys}>
                     <kbd>⌘</kbd>
                     <kbd>⌥</kbd>
@@ -310,7 +302,7 @@ export default function Home() {
 
       <Toast open={copied} onOpenChange={setCopied}>
         <ToastTitle className={styles.toastTitle}>
-          <ClipboardIcon /> Copied to clipboard
+          <Icon.CopyClipboard /> Copied to clipboard
         </ToastTitle>
       </Toast>
 
@@ -373,9 +365,9 @@ export default function Home() {
                                   creativity={prompt.creativity}
                                 />
                                 {prompt.model === "code" ? (
-                                  <CodeBlockIcon />
+                                  <Icon.CodeBlock />
                                 ) : (
-                                  <SpeechBubbleIcon />
+                                  <Icon.SpeechBubble />
                                 )}
                               </div>
                             </div>
