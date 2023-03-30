@@ -124,8 +124,8 @@ export default function Home() {
   const makePromptImportData = React.useCallback(() => {
     return `[${selectedPromptsConfig
       .map((prompt) => {
-        const { title, instruction, creativity, model } = prompt;
-        return JSON.stringify({ title, instruction, creativity, model });
+        const { title, instruction, creativity } = prompt;
+        return JSON.stringify({ title, instruction, creativity });
       })
       .join(",")}]`;
   }, [selectedPromptsConfig]);
@@ -133,8 +133,8 @@ export default function Home() {
   const makeQueryString = React.useCallback(() => {
     const queryString = selectedPromptsConfig
       .map((prompt) => {
-        const { title, instruction, creativity, model } = prompt;
-        return JSON.stringify({ title, instruction, creativity, model });
+        const { title, instruction, creativity } = prompt;
+        return JSON.stringify({ title, instruction, creativity });
       })
       .join("&");
     return queryString;
@@ -364,11 +364,6 @@ export default function Home() {
                                 <CreativityIcon
                                   creativity={prompt.creativity}
                                 />
-                                {prompt.model === "code" ? (
-                                  <Icon.CodeBlock />
-                                ) : (
-                                  <Icon.SpeechBubble />
-                                )}
                               </div>
                             </div>
                           </div>

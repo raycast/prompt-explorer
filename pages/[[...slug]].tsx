@@ -126,8 +126,8 @@ export default function Home({ onTouchReady }) {
   const makeCommandsImportData = React.useCallback(() => {
     return `[${selectedCommandsConfig
       .map((command) => {
-        const { title, instruction, creativity, model } = command;
-        return JSON.stringify({ title, instruction, creativity, model });
+        const { title, instruction, creativity } = command;
+        return JSON.stringify({ title, instruction, creativity });
       })
       .join(",")}]`;
   }, [selectedCommandsConfig]);
@@ -135,10 +135,10 @@ export default function Home({ onTouchReady }) {
   const makeQueryString = React.useCallback(() => {
     const queryString = selectedCommandsConfig
       .map((command) => {
-        const { title, instruction, creativity, model } = command;
+        const { title, instruction, creativity } = command;
 
         return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, instruction, creativity, model })
+          JSON.stringify({ title, instruction, creativity })
         )}`;
       })
       .join("&");
@@ -588,16 +588,8 @@ export default function Home({ onTouchReady }) {
                                 <command.icon />
                                 {command.title}
                               </span>
-                              <div className={styles.icons}>
-                                <CreativityIcon
-                                  creativity={command.creativity}
-                                />
-                                {command.model === "code" ? (
-                                  <Icon.CodeBlock />
-                                ) : (
-                                  <Icon.SpeechBubble />
-                                )}
-                              </div>
+
+                              <CreativityIcon creativity={command.creativity} />
                             </div>
                           </div>
                         );
