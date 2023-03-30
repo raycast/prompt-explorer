@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import SelectionArea, { SelectionEvent } from "@viselect/react";
 import { useRouter } from "next/router";
 import copy from "copy-to-clipboard";
-import { Icon, RaycastLogoIcon } from "../components/Icon";
+import { Icon } from "../components/Icon";
 import {
   Dialog,
   DialogContent,
@@ -373,7 +373,7 @@ export default function Home({ onTouchReady }) {
               >
                 Made by{" "}
                 <span style={{ color: "#FF6363" }}>
-                  <RaycastLogoIcon />{" "}
+                  <Icon.RaycastLogoNeg />{" "}
                 </span>
                 <span>Raycast</span>
               </a>
@@ -583,8 +583,9 @@ export default function Home({ onTouchReady }) {
                                 </pre>
                               </ScrollArea>
                             </div>
-                            <div className={styles.nameContainer}>
+                            <div className={styles.command}>
                               <span className={styles.name}>
+                                <command.icon />
                                 {command.title}
                               </span>
                               <div className={styles.icons}>

@@ -1,11 +1,11 @@
-import { Icon, RaycastLogoIcon } from "./Icon";
+import { Icon } from "./Icon";
 import styles from "./PromptLogo.module.css";
 
 export function PromptLogo() {
   return (
     <span className={styles.logo}>
-      <Icon.Stars />
-      <RaycastLogoIcon size={16} />
+      <Icon.Stars data-icon="stars" />
+      <Icon.RaycastLogoNeg data-icon="raycast" />
     </span>
   );
 }
