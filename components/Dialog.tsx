@@ -3,7 +3,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 
 import styles from "./Dialog.module.css";
 import { ScrollArea } from "./ScrollArea";
-import { Icon } from "./Icon";
+import { XMarkCircle } from "@raycast/icons";
 
 type DialogPrimitiveContentProps = React.ComponentProps<
   typeof DialogPrimitive.Content
@@ -30,7 +30,7 @@ export const DialogContent = React.forwardRef<
             {children}
             {showCloseButton && (
               <DialogPrimitive.Close className={styles.close}>
-                <Icon.XMarkCircle width={24} height={24} />
+                <XMarkCircle width={24} height={24} />
               </DialogPrimitive.Close>
             )}
           </div>

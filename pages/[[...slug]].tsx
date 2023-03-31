@@ -3,7 +3,6 @@ import NextLink from "next/link";
 import SelectionArea, { SelectionEvent } from "@viselect/react";
 import { useRouter } from "next/router";
 import copy from "copy-to-clipboard";
-import { Icon } from "../components/Icon";
 import {
   Dialog,
   DialogContent,
@@ -32,6 +31,16 @@ import styles from "../styles/Home.module.css";
 import { Instructions } from "../components/Instructions";
 import { useSectionInView } from "../utils/useSectionInViewObserver";
 import CreativityIcon from "../components/CreativityIcon";
+import {
+  ChevronDown,
+  CopyClipboard,
+  Download,
+  Link,
+  PlusCircle,
+  RaycastLogoNeg,
+  Stars,
+  Trash,
+} from "@raycast/icons";
 
 const raycastProtocolForEnvironments = {
   development: "raycastdebug",
@@ -373,7 +382,7 @@ export default function Home({ onTouchReady }) {
               >
                 Made by{" "}
                 <span style={{ color: "#FF6363" }}>
-                  <Icon.RaycastLogoNeg />{" "}
+                  <RaycastLogoNeg />{" "}
                 </span>
                 <span>Raycast</span>
               </a>
@@ -390,7 +399,7 @@ export default function Home({ onTouchReady }) {
                 disabled={selectedCommandsConfig.length === 0}
                 onClick={() => handleAddToRaycast()}
               >
-                <Icon.PlusCircle /> Add to Raycast
+                <PlusCircle /> Add to Raycast
               </Button>
 
               <DropdownMenu open={actionsOpen} onOpenChange={setActionsOpen}>
@@ -400,7 +409,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     aria-label="Export options"
                   >
-                    <Icon.ChevronDown />
+                    <ChevronDown />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
@@ -408,7 +417,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     onSelect={() => handleDownload()}
                   >
-                    <Icon.Download /> Download JSON
+                    <Download /> Download JSON
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>D</kbd>
@@ -418,7 +427,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     onSelect={() => handleCopyData()}
                   >
-                    <Icon.CopyClipboard /> Copy JSON{" "}
+                    <CopyClipboard /> Copy JSON{" "}
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>⌥</kbd>
@@ -429,7 +438,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedCommandsConfig.length === 0}
                     onSelect={() => handleCopyUrl()}
                   >
-                    <Icon.Link /> Copy URL to share{" "}
+                    <Link /> Copy URL to share{" "}
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>⇧</kbd>
@@ -447,7 +456,7 @@ export default function Home({ onTouchReady }) {
               disabled={selectedCommandsConfig.length === 0}
               onClick={() => handleCopyUrl()}
             >
-              <Icon.Link /> Copy URL to share
+              <Link /> Copy URL to share
             </Button>
           )}
         </div>
@@ -455,7 +464,7 @@ export default function Home({ onTouchReady }) {
 
       <Toast open={copied} onOpenChange={setCopied}>
         <ToastTitle className={styles.toastTitle}>
-          <Icon.CopyClipboard /> Copied to clipboard
+          <CopyClipboard /> Copied to clipboard
         </ToastTitle>
       </Toast>
 
@@ -486,7 +495,7 @@ export default function Home({ onTouchReady }) {
                             ? "Commands"
                             : "Command"}{" "}
                           selected
-                          <Icon.ChevronDown />
+                          <ChevronDown />
                         </button>
                       </Collapsible.Trigger>
 
@@ -508,7 +517,7 @@ export default function Home({ onTouchReady }) {
                                 );
                               }}
                             >
-                              <Icon.Trash />
+                              <Trash />
                             </button>
                           </div>
                         ))}
@@ -619,7 +628,7 @@ function NavItem({ category }) {
       className={styles.sidebarNavItem}
       data-active={activeSection === category.slug}
     >
-      {category.icon ? <category.icon /> : <Icon.Stars />}
+      {category.icon ? <category.icon /> : <Stars />}
 
       {category.name}
       <span className={styles.badge}>{category.commands.length}</span>

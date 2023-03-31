@@ -1,4 +1,10 @@
-import { Icon } from "./Icon";
+import {
+  Circle,
+  CircleProgress25,
+  CircleProgress50,
+  CircleProgress75,
+  CircleProgress100,
+} from "@raycast/icons";
 import { Command } from "../data/prompts";
 
 export default function CreativityIcon({
@@ -7,22 +13,22 @@ export default function CreativityIcon({
   creativity: Command["creativity"];
 }) {
   if (creativity === "none") {
-    return <Icon.Circle />;
+    return <Circle />;
   }
 
   if (creativity === "low") {
-    return <Icon.CircleProgress25 />;
+    return <CircleProgress25 />;
   }
 
   if (creativity === "medium") {
-    return <Icon.CircleProgress50 />;
+    return <CircleProgress50 />;
   }
 
   if (creativity === "high") {
-    return <Icon.CircleProgress75 />;
+    return <CircleProgress75 />;
   }
 
   if (creativity === "maximum") {
-    return <Icon.CircleProgress100 />;
+    return <CircleProgress100 />;
   }
 }
