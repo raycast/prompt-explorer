@@ -27,6 +27,7 @@ import {
   PlusCircle,
   Stars,
 } from "@raycast/icons";
+import IconFromString from "../components/IconFromString";
 
 const raycastProtocolForEnvironments = {
   development: "raycastdebug",
@@ -130,8 +131,8 @@ export default function Home() {
   const makePromptImportData = React.useCallback(() => {
     return `[${selectedPromptsConfig
       .map((prompt) => {
-        const { title, instruction, creativity } = prompt;
-        return JSON.stringify({ title, instruction, creativity });
+        const { title, instruction, creativity, icon } = prompt;
+        return JSON.stringify({ title, instruction, creativity, icon });
       })
       .join(",")}]`;
   }, [selectedPromptsConfig]);
@@ -139,8 +140,8 @@ export default function Home() {
   const makeQueryString = React.useCallback(() => {
     const queryString = selectedPromptsConfig
       .map((prompt) => {
-        const { title, instruction, creativity } = prompt;
-        return JSON.stringify({ title, instruction, creativity });
+        const { title, instruction, creativity, icon } = prompt;
+        return JSON.stringify({ title, instruction, creativity, icon });
       })
       .join("&");
     return queryString;
@@ -362,15 +363,13 @@ export default function Home() {
                                 </pre>
                               </ScrollArea>
                             </div>
-                            <div className={styles.nameContainer}>
+                            <div className={styles.command}>
                               <span className={styles.name}>
+                                <IconFromString name={prompt.icon} />
                                 {prompt.title}
                               </span>
-                              <div className={styles.icons}>
-                                <CreativityIcon
-                                  creativity={prompt.creativity}
-                                />
-                              </div>
+
+                              <CreativityIcon creativity={prompt.creativity} />
                             </div>
                           </div>
                         );

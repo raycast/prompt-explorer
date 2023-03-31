@@ -135,8 +135,19 @@ export default function Home({ onTouchReady }) {
   const makeCommandsImportData = React.useCallback(() => {
     return `[${selectedCommandsConfig
       .map((command) => {
-        const { title, instruction, creativity } = command;
-        return JSON.stringify({ title, instruction, creativity });
+        const { title, instruction, creativity, icon } = command;
+
+        const stringWithoutSvgPrefix = icon.name.slice(3);
+        const stringWithHyphens = stringWithoutSvgPrefix.replace(
+          /[A-Z]/g,
+          (match, index) => {
+            // Don't add a hyphen at the beginning of the string
+            return (index > 0 ? "-" : "") + match.toLowerCase();
+          }
+        );
+        const result = stringWithHyphens + "-16";
+
+        return JSON.stringify({ title, instruction, creativity, icon: result });
       })
       .join(",")}]`;
   }, [selectedCommandsConfig]);
@@ -144,10 +155,20 @@ export default function Home({ onTouchReady }) {
   const makeQueryString = React.useCallback(() => {
     const queryString = selectedCommandsConfig
       .map((command) => {
-        const { title, instruction, creativity } = command;
+        const { title, instruction, creativity, icon } = command;
+
+        const stringWithoutSvgPrefix = icon.name.slice(3);
+        const stringWithHyphens = stringWithoutSvgPrefix.replace(
+          /[A-Z]/g,
+          (match, index) => {
+            // Don't add a hyphen at the beginning of the string
+            return (index > 0 ? "-" : "") + match.toLowerCase();
+          }
+        );
+        const result = stringWithHyphens + "-16";
 
         return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, instruction, creativity })
+          JSON.stringify({ title, instruction, creativity, icon: result })
         )}`;
       })
       .join("&");
