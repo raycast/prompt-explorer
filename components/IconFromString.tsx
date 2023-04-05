@@ -1,4 +1,4 @@
-import { Stars } from "@raycast/icons";
+import { StarsIcon } from "@raycast/icons";
 import React, { Suspense, lazy } from "react";
 
 function iconNameToComponentName(iconName) {
@@ -18,7 +18,7 @@ function IconFromString({ name }: IconFromStringProps) {
   const IconComponent = lazy(async () => {
     const iconsModule = await import("@raycast/icons");
     const component = iconsModule[iconNameToComponentName(name)];
-    return { default: component ? component : Stars };
+    return { default: component ? component : StarsIcon };
   });
 
   return (

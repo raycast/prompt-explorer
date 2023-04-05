@@ -1,9 +1,9 @@
 import {
-  Circle,
-  CircleProgress25,
-  CircleProgress50,
-  CircleProgress75,
-  CircleProgress100,
+  CircleIcon,
+  CircleProgress25Icon,
+  CircleProgress50Icon,
+  CircleProgress75Icon,
+  CircleProgress100Icon,
 } from "@raycast/icons";
 import { Command } from "../data/prompts";
 
@@ -13,22 +13,22 @@ export default function CreativityIcon({
   creativity: Command["creativity"];
 }) {
   if (creativity === "none") {
-    return <Circle />;
+    return <CircleIcon />;
   }
 
   if (creativity === "low") {
-    return <CircleProgress25 />;
+    return <CircleProgress25Icon />;
   }
 
   if (creativity === "medium") {
-    return <CircleProgress50 />;
+    return <CircleProgress50Icon />;
   }
 
   if (creativity === "high") {
-    return <CircleProgress75 />;
+    return <CircleProgress75Icon />;
   }
 
   if (creativity === "maximum") {
-    return <CircleProgress100 />;
+    return <CircleProgress100Icon />;
   }
 }
