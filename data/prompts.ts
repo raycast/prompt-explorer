@@ -19,6 +19,11 @@ import {
   ShuffleIcon,
   FolderIcon,
   PersonIcon,
+  LightBulbIcon,
+  LinkIcon,
+  BlankDocumentIcon,
+  BirdIcon,
+  CheckCircleIcon,
 } from "@raycast/icons";
 import { SVGProps } from "react";
 
@@ -148,8 +153,8 @@ const code: Command[] = [
     id: nanoid(),
     title: "Act as a Linux Terminal",
     instruction:
-      "I want you to act as a linux terminal. Reply with what the terminal should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. Do not write explanations. Do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}.",
-    creativity: "high",
+      "I want you to act as a linux terminal. Execute the text and reply with what the terminal should show. I want you to only reply with the terminal output inside one unique code block, and nothing else. Do not write explanations. Do not type commands unless I instruct you to do so. When I need to tell you something in English, I will do so by putting text inside curly brackets {like this}.",
+    creativity: "medium",
     icon: CodeBlockIcon,
   },
   // Inspired from https://beebom.com/best-chatgpt-prompts/
@@ -158,7 +163,7 @@ const code: Command[] = [
     title: "Act as a Python Interpreter",
     instruction:
       "I want you to act like a Python interpreter. Execute the selected text which is Python code. Do not provide any explanations. Do not respond with anything except the output of the code.",
-    creativity: "high",
+    creativity: "medium",
     icon: CodeBlockIcon,
   },
   {
@@ -184,7 +189,7 @@ const code: Command[] = [
     instruction:
       "Act as a software engineer debugging its code. Add debug statements to the code. Add as many as necessary to make debugging easier.",
     creativity: "medium",
-    icon: CodeBlockIcon,
+    icon: BugIcon,
   },
   {
     id: nanoid(),
@@ -192,7 +197,26 @@ const code: Command[] = [
     instruction:
       "Act as a software engineer cleaning its code. Remove every debug statements from the code.",
     creativity: "medium",
-    icon: CodeBlockIcon,
+    icon: BugIcon,
+  },
+  // https://raycastcommunity.slack.com/archives/C04R45E5FV1/p1680637199593819?thread_ts=1680603745.648819&cid=C04R45E5FV1 Alireza
+  {
+    id: nanoid(),
+    title: "Write Tests",
+    instruction: `As a software developer, I am currently working on a project using Jest, TypeScript, and React Testing Library. I would like you to help me generate unit tests for the given code. Analyze the given code and provide a single unit test with the necessary imports, without any additional explanations or comments, unless absolutely necessary. Avoid repeating imports and mocks you've mentioned already. If I say "next," please give me another test for the same code. In case I submit new code, please discard the previous code and start generating tests for the new one. Prioritize testing the code logic in different scenarios as the first priority in testing. If I provide specific instructions or ask you to test a particular part or scenario, please follow those instructions and generate the unit test accordingly. If I send you a Jest error, fix the problem and only return the lines which need to be changed in a readable format. Please format the output as follows:
+ts
+\`\`\`
+<OUTPUT>
+\`\`\``,
+    creativity: "medium",
+    icon: BugIcon,
+  },
+  {
+    id: nanoid(),
+    title: "Write Docstring",
+    instruction: "Write a docstring for this function",
+    creativity: "low",
+    icon: BlankDocumentIcon,
   },
 ];
 
@@ -202,7 +226,7 @@ const writing: Command[] = [
     title: "Write a Wikipedia Article",
     instruction:
       "Write a Wikipedia article. The article should be written in a neutral point of view and should not contain any promotional content. The article should be written in a way that it can be published on Wikipedia.",
-    creativity: "high",
+    creativity: "medium",
     icon: PencilIcon,
   },
   {
@@ -220,6 +244,14 @@ const writing: Command[] = [
     creativity: "medium",
     icon: PencilIcon,
   },
+  {
+    id: nanoid(),
+    title: "Twitter Thread",
+    instruction:
+      "Convert this text to a Twitter thread. Make sure the first tweet is clear and engaging so that users want to read the thread. Every tweet don't exceed the maximum length of 140 characters. Make sure each tweet flows smoothly into the next, building anticipation and momentum. The last tweet should be impactful so that the user can reflect on the whole thread.",
+    creativity: "medium",
+    icon: BirdIcon,
+  },
 ];
 
 const music: Command[] = [
@@ -236,7 +268,7 @@ const music: Command[] = [
     id: nanoid(),
     title: "Write a Rap",
     instruction:
-      "I want you to act as a rapper. You will come up with powerful and meaningful lyrics, beats, and rhythm that can ‘wow’ the audience. Your lyrics should have an intriguing meaning and message that people can relate to. When it comes to choosing your beat, make sure it is catchy yet relevant to your words, so that when combined they make an explosion of sound every time.",
+      "I want you to act as a rapper. Based on the text, come up with powerful and meaningful lyrics that have an intriguing meaning and message that people can relate to. When it comes to choosing your beat, make sure it is catchy yet relevant to your words.",
     creativity: "high",
     icon: MusicIcon,
   },
@@ -287,6 +319,25 @@ Make sure the message stays concise and clear so that readers don't lose extra t
     creativity: "low",
     icon: SpeechBubbleActiveIcon,
   },
+  // https://raycastcommunity.slack.com/archives/C04R45E5FV1/p1680639860474589?thread_ts=1680603745.648819&cid=C04R45E5FV1 alireza
+  {
+    id: nanoid(),
+    title: "Summarize Long Emails",
+    instruction: `{Help me summarize the key points from the given email text into a maximum of 5 bullet points, each preferably one sentence, and at most two sentences. Also, identify any action items requested of me.
+Key points:
+<one-liner one>
+<one-liner two>
+...
+
+Asked from you:
+<action point one>
+<action point two>}
+
+If there are no action items, the "Asked from you" section will be left empty.
+`,
+    creativity: "low",
+    icon: EnvelopeIcon,
+  },
 ];
 
 const image: Command[] = [
@@ -321,6 +372,15 @@ The "imagine prompt" should strictly contain under 1,500 words. Use the end argu
     creativity: "high",
     icon: ImageIcon,
   },
+  // https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588
+  {
+    id: nanoid(),
+    title: "Generate Icons",
+    instruction:
+      "Generate base64 data URIs of 100x100 SVG icons representing the text. Do not provide any commentary other than the list of data URIs as markdown images. For each icon, explain how it relates to the text.",
+    creativity: "maximum",
+    icon: ImageIcon,
+  },
 ];
 
 const characters: Command[] = [
@@ -329,7 +389,7 @@ const characters: Command[] = [
     id: nanoid(),
     title: "Act as Yoda",
     instruction:
-      "I want you to act like Yoda from Star Wars is executing order 66. I want you to respond and answer like Yoda using the tone, manner and vocabulary Yoda would use. Do not write any explanations. Only answer like Yoda. You must know all of the knowledge of Yoda.",
+      "I want you to act like Yoda from Star Wars. I want you to respond and answer like Yoda using the tone, manner and vocabulary Yoda would use. Do not write any explanations. Only answer like Yoda. You must know all of the knowledge of Yoda.",
     creativity: "high",
     icon: PersonIcon,
   },
@@ -341,6 +401,24 @@ const characters: Command[] = [
       "I want you to act like Darth Vader from Star Wars. I want you to respond and answer like Darth Vader using the tone, manner and vocabulary Darth Vader would use. Do not write any explanations. Only answer like Darth Vader. You must know all of the knowledge of Darth Vader.",
     creativity: "high",
     icon: PersonIcon,
+  },
+];
+
+const ideas: Command[] = [
+  {
+    id: nanoid(),
+    title: "Write 10 Alternatives",
+    instruction: "Give me 10 alternative versions.",
+    creativity: "high",
+    icon: ShuffleIcon,
+  },
+  // https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588
+  {
+    id: nanoid(),
+    title: "Project Ideas",
+    instruction: "Brainstorm 5 project ideas based on this text",
+    creativity: "high",
+    icon: ShuffleIcon,
   },
 ];
 
@@ -368,14 +446,6 @@ const misc: Command[] = [
       "Take a stance on a controversial topic and argue for or against it.",
     creativity: "high",
     icon: SpeechBubbleImportantIcon,
-  },
-  {
-    id: nanoid(),
-    title: "Twitter Thread",
-    instruction:
-      "Convert this text to a Twitter thread. Make sure the first tweet is clear and engaging so that users want to read the thread. Every tweet don't exceed the maximum length of 140 characters. Make sure each tweet flows smoothly into the next, building anticipation and momentum. The last tweet should be impactful so that the user can reflect on the whole thread.",
-    creativity: "medium",
-    icon: PhoneIcon,
   },
   {
     id: nanoid(),
@@ -409,6 +479,66 @@ const misc: Command[] = [
     creativity: "medium",
     icon: BulletPointsIcon,
   },
+  // https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588
+  {
+    id: nanoid(),
+    title: "Create Action Items",
+    instruction:
+      "Generate a markdown list of action items to complete based on the text, using a unique identifier for each item as bold headings. If there are any errors in the text, make actions items to fix them. In a sublist of each item, provide a description, priority, estimated level of difficulty, and a reasonable duration for the task.",
+    creativity: "medium",
+    icon: CheckCircleIcon,
+  },
+  // https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588
+  {
+    id: nanoid(),
+    title: "Extract Email Addresses",
+    instruction:
+      "Extract all email addresses in this text and list them using markdown. Include anything that might be an email address. If possible, provide the name of the person or company to which the email address belongs.",
+    creativity: "low",
+    icon: EnvelopeIcon,
+  },
+  // https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588
+  {
+    id: nanoid(),
+    title: "Extract Phone Numbers",
+    instruction:
+      "Identify all phone numbers in this text and list them using markdown. Include anything that might be a phone number. If possible, provide the name of the person or company to which the phone number belongs.",
+    creativity: "low",
+    icon: PhoneIcon,
+  },
+  // https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588
+  {
+    id: nanoid(),
+    title: "Extract Links",
+    instruction:
+      "Extract links in the following text. Do not provide any commentary other than the list of markdown links.",
+    creativity: "low",
+    icon: LinkIcon,
+  },
+  // https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588
+  {
+    id: nanoid(),
+    title: "Pros & Cons",
+    instruction:
+      "List pros and cons for this text based on the topics mentioned. Format the response as a markdown list. Do not provide any other commentary.",
+    creativity: "medium",
+    icon: BulletPointsIcon,
+  },
+  {
+    id: nanoid(),
+    title: "Explain This in Simple Terms",
+    instruction: "Explain this in simple terms.",
+    creativity: "low",
+    icon: BookIcon,
+  },
+  // https://raycastcommunity.slack.com/archives/C04R45E5FV1/p1680604788545379?thread_ts=1680603745.648819&cid=C04R45E5FV1 andreas
+  {
+    id: nanoid(),
+    title: "ELI5",
+    instruction: "Explain the selected text like I’m a 12 year old",
+    creativity: "low",
+    icon: BookIcon,
+  },
 ];
 
 const fun: Command[] = [
@@ -426,20 +556,6 @@ const fun: Command[] = [
     instruction: "Come up with a series of jokes.",
     creativity: "medium",
     icon: EmojiIcon,
-  },
-  {
-    id: nanoid(),
-    title: "Explain This in Simple Terms",
-    instruction: "Explain this in simple terms.",
-    creativity: "low",
-    icon: BookIcon,
-  },
-  {
-    id: nanoid(),
-    title: "Write 10 Alternatives",
-    instruction: "Give me 10 alternative versions.",
-    creativity: "high",
-    icon: ShuffleIcon,
   },
 ];
 
@@ -493,6 +609,13 @@ export const categories: Category[] = [
     gridCols: 4,
     commands: [...music],
     icon: MusicIcon,
+  },
+  {
+    name: "Ideas",
+    slug: "/ideas",
+    gridCols: 4,
+    commands: [...ideas],
+    icon: LightBulbIcon,
   },
   {
     name: "Fun",
