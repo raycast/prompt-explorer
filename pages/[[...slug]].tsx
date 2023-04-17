@@ -43,8 +43,9 @@ import {
 } from "@raycast/icons";
 
 const raycastProtocolForEnvironments = {
-  development: "raycastdebug",
-  production: "raycast",
+  development: "raycastinternal",
+  // TODO: switch to "raycast" when we're ready to ship
+  production: "raycastinternal",
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 

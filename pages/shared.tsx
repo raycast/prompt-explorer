@@ -30,7 +30,7 @@ import {
 import IconFromString from "../components/IconFromString";
 
 const raycastProtocolForEnvironments = {
-  development: "raycastdebug",
+  development: "raycastinternal",
   production: "raycast",
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
