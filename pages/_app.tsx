@@ -5,6 +5,7 @@ import "../styles/globals.css";
 
 import { Inter, JetBrains_Mono } from "next/font/google";
 
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { ToastProvider, ToastViewport } from "../components/Toast";
 import { useSectionInViewObserver } from "../utils/useSectionInViewObserver";
@@ -12,12 +13,12 @@ import { useSectionInViewObserver } from "../utils/useSectionInViewObserver";
 const inter = Inter({ subsets: ["latin"] });
 const jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   const [enableViewObserver, setEnableViewObserver] = React.useState(false);
   useSectionInViewObserver({ headerHeight: 72, enabled: enableViewObserver });
 
   return (
-    <>
+    <SessionProvider session={session}>
       <Head>
         <link rel="icon" type="image/x-icon" href={`/favicon.png`} />
         <title>Prompt Explorer by Raycast</title>
@@ -64,7 +65,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <ToastViewport />
       </ToastProvider>
       <Analytics />
-    </>
+    </SessionProvider>
   );
 }
 
