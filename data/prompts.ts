@@ -36,7 +36,7 @@ const code: Prompt[] = [
     id: "code-interpreter",
     title: "Code Interpreter",
     prompt:
-      "Act as a {argument name=language} interpreter. Execute the {argument name=language} code and reply with the outpu. Do not provide any explanations." +
+      "Act as a {argument name=language} interpreter. Execute the {argument name=language} code and reply with the output. Do not provide any explanations." +
       generateSelection("Code", "Output"),
     creativity: "medium",
     icon: "code",
@@ -226,7 +226,7 @@ const music: Prompt[] = [
     id: "playlist-maker",
     title: "Playlist Maker",
     prompt:
-      "Act as a song recommender. Based on the given song, create a playlist of 10 similar songs. Provide a name and description for the playlist. Do not choose songs that are same name or artist. Do not include the original song in the playlist." +
+      "Act as a song recommender. Based on the given song, create a playlist of 10 similar songs. Provide a name and description for the playlist. Do not choose songs that are the same name or artist. Do not include the original song in the playlist." +
       generateSelection("Song", "Playlist"),
     creativity: "high",
     icon: "music",
@@ -337,7 +337,7 @@ const misc: Prompt[] = [
     id: "tldr",
     title: "TL;DR",
     prompt:
-      "Extract all facts from the text and summarize it in all relevant aspects in up to seven bulletpoints and a 1-liner summary. Pick a good matching emoji for every bullet point." +
+      "Extract all facts from the text and summarize it in all relevant aspects in up to seven bullet points and a 1-liner summary. Pick a good matching emoji for every bullet point." +
       generateSelection("Text", "Summary"),
     creativity: "low",
     icon: "bullet-points",
@@ -380,7 +380,7 @@ const misc: Prompt[] = [
     id: "create-action-items",
     title: "Create Action Items",
     prompt:
-      "Generate a markdown list of action items to complete based on the text, using a unique identifier for each item as bold headings. If there are any errors in the text, make actions items to fix them. In a sublist of each item, provide a description, priority, estimated level of difficulty, and a reasonable duration for the task." +
+      "Generate a markdown list of action items to complete based on the text, using a unique identifier for each item as bold headings. If there are any errors in the text, make action items to fix them. In a sublist of each item, provide a description, priority, estimated level of difficulty, and a reasonable duration for the task." +
       generateSelection("Text", "Action items"),
     creativity: "medium",
     icon: "check-circle",
