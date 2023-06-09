@@ -427,9 +427,9 @@ const misc: Prompt[] = [
   },
   {
     id: "eli",
-    title: "Explain Like I'm...",
+    title: "Explain Like I'm a...",
     prompt:
-      "Explain the text like I’m a {argument name=age default=5} year old." +
+      `Explain the text like I’m a {argument name=identity default="5 year old"}` +
       generateSelection("Text", "Explanation"),
     creativity: "low",
     icon: "book",
