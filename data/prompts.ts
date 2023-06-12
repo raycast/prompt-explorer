@@ -180,6 +180,15 @@ If there are no action items, the "Asked from you" section will be left empty.` 
     creativity: "medium",
     icon: "calendar",
   },
+  {
+    id: "summarize-and-sympathize",
+    title: "Summarize and sympathize text",
+    prompt:
+      "Please summarize and omit the following. Then express your empathy." +
+      generateSelection("Text", "Sympathy"),
+    creativity: "low",
+    icon: "speech-bubble",
+  },
 ];
 
 const writing: Prompt[] = [
