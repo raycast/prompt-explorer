@@ -289,7 +289,7 @@
   }
 
   &[data-selected="true"] {
-    background-color: rgba(44, 29, 75, 0.6);
+    background-color: rgba(44, 29, 75, 0.5);
     user-select: none;
     box-shadow: inset 0 0 0 2px solid #2c1d4b;
     color: #fff;
@@ -303,6 +303,7 @@
 .prompt {
   width: 100%;
   display: flex;
+  gap: 8px;
   justify-content: space-between;
   align-items: center;
 }
@@ -319,6 +320,21 @@
   font-size: 13px;
   font-weight: 500;
   color: #fff;
+}
+
+.promptAuthor {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-weight: 400;
+
+  a {
+    color: rgba(255, 255, 255, 0.5);
+    transition: color 150ms ease;
+
+    &:hover {
+      color: #ff6363;
+    }
+  }
 }
 
 .text {

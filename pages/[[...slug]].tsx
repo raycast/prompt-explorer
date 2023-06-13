@@ -603,6 +603,22 @@ export default function Home({ onTouchReady }) {
                               <span className={styles.name}>
                                 <prompt.iconComponent />
                                 {prompt.title}
+                                {prompt.author ? (
+                                  <span className={styles.promptAuthor}>
+                                    by{" "}
+                                    {prompt.author.link ? (
+                                      <a
+                                        href={prompt.author.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        {prompt.author.name}
+                                      </a>
+                                    ) : (
+                                      prompt.author.name
+                                    )}
+                                  </span>
+                                ) : null}
                               </span>
 
                               <CreativityIcon creativity={prompt.creativity} />

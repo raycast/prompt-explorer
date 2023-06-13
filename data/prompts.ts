@@ -7,6 +7,10 @@ export type Prompt = {
   prompt: string;
   icon: IconName;
   creativity: "none" | "low" | "medium" | "high" | "maximum";
+  author?: {
+    name: string;
+    link?: string;
+  };
 };
 
 function generateSelection(selectionWord: string, resultWord: string) {
@@ -77,7 +81,6 @@ const code: Prompt[] = [
     creativity: "medium",
     icon: "bug",
   },
-  // Inspired from alireza (https://raycastcommunity.slack.com/archives/C04R45E5FV1/p1680637199593819?thread_ts=1680603745.648819&cid=C04R45E5FV1)
   {
     id: "write-tests",
     title: "Write Tests",
@@ -86,6 +89,10 @@ const code: Prompt[] = [
       generateSelection("Code", "Output"),
     creativity: "medium",
     icon: "bug",
+    author: {
+      name: "Alireza Sheikholmolouki",
+      link: "https://github.com/Alireza29675",
+    },
   },
   {
     id: "write-docstring",
@@ -140,7 +147,6 @@ Make sure the message stays concise and clear so that readers don't lose extra t
     creativity: "low",
     icon: "speech-bubble-active",
   },
-  // Inspired from alireza (https://raycastcommunity.slack.com/archives/C04R45E5FV1/p1680639860474589?thread_ts=1680603745.648819&cid=C04R45E5FV1)
   {
     id: "summarize-long-email",
     title: "Summarize Long Emails",
@@ -160,6 +166,10 @@ If there are no action items, the "Asked from you" section will be left empty.` 
       generateSelection("Email", "Output"),
     creativity: "low",
     icon: "envelope",
+    author: {
+      name: "Alireza Sheikholmolouki",
+      link: "https://github.com/Alireza29675",
+    },
   },
   {
     id: "debate-controversial-topic",
@@ -170,7 +180,6 @@ If there are no action items, the "Asked from you" section will be left empty.` 
     creativity: "high",
     icon: "speech-bubble-important",
   },
-  // Inspired from Roel Van Gils (https://raycastcommunity.slack.com/archives/C04R45E5FV1/p1685451820703389?thread_ts=1685451749.404159&cid=C04R45E5FV1)
   {
     id: "create-calendar-event",
     title: "Create a Calendar Event",
@@ -179,6 +188,10 @@ If there are no action items, the "Asked from you" section will be left empty.` 
       generateSelection("Information", "ICS"),
     creativity: "medium",
     icon: "calendar",
+    author: {
+      name: "Roel Van Gils",
+      link: "https://github.com/roelvangils",
+    },
   },
   {
     id: "summarize-and-sympathize",
@@ -188,6 +201,60 @@ If there are no action items, the "Asked from you" section will be left empty.` 
       generateSelection("Text", "Sympathy"),
     creativity: "low",
     icon: "speech-bubble",
+    author: {
+      name: "nagauta",
+      link: "https://github.com/nagauta",
+    },
+  },
+];
+
+const image: Prompt[] = [
+  {
+    id: "youtube-script",
+    title: "Create a YouTube Script",
+    prompt:
+      "Create a compelling and captivating YouTube script based on the text. Make sure to include B-Rolls in the script. Make the script as long as necessary to make a video of {argument name=minutes default=10} minutes." +
+      generateSelection("Text", "Script"),
+    creativity: "high",
+    icon: "image",
+  },
+  {
+    id: "midjourney-prompt-generator",
+    title: "Midjourney Prompt Generator",
+    prompt:
+      `Based on the text, generate an "imagine prompt" that contains a maximum word count of 1,500 words that will be used as input for an AI-based text to image program called MidJourney based on the following parameters: /imagine prompt: [1], [2], [3], [4], [5], [6]
+    
+In this prompt, [1] should be replaced with a random subject and [2] should be a short concise description about that subject. Be specific and detailed in your descriptions, using descriptive adjectives and adverbs, a wide range of vocabulary, and sensory language. Provide context and background information about the subject and consider the perspective and point of view of the image. Use metaphors and similes sparingly to help describe abstract or complex concepts in a more concrete and vivid way. Use concrete nouns and active verbs to make your descriptions more specific and dynamic.
+    
+[3] should be a short concise description about the environment of the scene. Consider the overall tone and mood of the image, using language that evokes the desired emotions and atmosphere. Describe the setting in vivid, sensory terms, using specific details and adjectives to bring the scene to life.
+    
+[4] should be a short concise description about the mood of the scene. Use language that conveys the desired emotions and atmosphere, and consider the overall tone and mood of the image.
+    
+[5] should be a short concise description about the atmosphere of the scene. Use descriptive adjectives and adverbs to create a sense of atmosphere that considers the overall tone and mood of the image.
+    
+[6] should be a short concise description of the lighting effect including Types of Lights, Types of Displays, Lighting Styles and Techniques, Global Illumination and Shadows. Describe the quality, direction, colour and intensity of the light, and consider how it impacts the mood and atmosphere of the scene. Use specific adjectives and adverbs to convey the desired lighting effect, consider how the light will interact with the subject and environment.
+    
+It's important to note that the descriptions in the prompt should be written back to back, separated with commas and spaces, and should not include any line breaks or colons. Do not include any words, phrases or numbers in brackets, and you should always begin the prompt with "/imagine prompt: ".
+    
+Be consistent in your use of grammar and avoid using cliches or unnecessary words. Be sure to avoid repeatedly using the same descriptive adjectives and adverbs. Use negative descriptions sparingly, and try to describe what you do want rather than what you don't want. Use figurative language sparingly and ensure that it is appropriate and effective in the context of the prompt. Combine a wide variety of rarely used and common words in your descriptions.
+     
+The "imagine prompt" should strictly contain under 1,500 words. Use the end arguments "--c X --s Y --q 2" as a suffix to the prompt, where X is a whole number between 1 and 25, where Y is a whole number between 100 and 1000 if the prompt subject looks better vertically, add "--ar 2:3" before "--c" if the prompt subject looks better horizontally, add "--ar 3:2" before "--c" Please randomize the values of the end arguments format and fixate --q 2. Please do not use double quotation marks or punctuation marks. Please use randomized end suffix format.` +
+      generateSelection("Text", "Midjourney Prompt"),
+    creativity: "high",
+    icon: "image",
+  },
+  {
+    id: "generate-icons",
+    title: "Generate Icons",
+    prompt:
+      "Generate base64 data URIs of 100x100 SVG icons representing the text. Do not provide any commentary other than the list of data URIs as markdown images. For each icon, explain how it relates to the text." +
+      generateSelection("Text", "Icons"),
+    creativity: "maximum",
+    icon: "image",
+    author: {
+      name: "Stephen Kaplan",
+      link: "https://github.com/SKaplanOfficial",
+    },
   },
 ];
 
@@ -242,53 +309,6 @@ const music: Prompt[] = [
   },
 ];
 
-const image: Prompt[] = [
-  {
-    id: "youtube-script",
-    title: "Create a YouTube Script",
-    prompt:
-      "Create a compelling and captivating YouTube script based on the text. Make sure to include B-Rolls in the script. Make the script as long as necessary to make a video of {argument name=minutes default=10} minutes." +
-      generateSelection("Text", "Script"),
-    creativity: "high",
-    icon: "image",
-  },
-  {
-    id: "midjourney-prompt-generator",
-    title: "Midjourney Prompt Generator",
-    prompt:
-      `Based on the text, generate an "imagine prompt" that contains a maximum word count of 1,500 words that will be used as input for an AI-based text to image program called MidJourney based on the following parameters: /imagine prompt: [1], [2], [3], [4], [5], [6]
-    
-In this prompt, [1] should be replaced with a random subject and [2] should be a short concise description about that subject. Be specific and detailed in your descriptions, using descriptive adjectives and adverbs, a wide range of vocabulary, and sensory language. Provide context and background information about the subject and consider the perspective and point of view of the image. Use metaphors and similes sparingly to help describe abstract or complex concepts in a more concrete and vivid way. Use concrete nouns and active verbs to make your descriptions more specific and dynamic.
-    
-[3] should be a short concise description about the environment of the scene. Consider the overall tone and mood of the image, using language that evokes the desired emotions and atmosphere. Describe the setting in vivid, sensory terms, using specific details and adjectives to bring the scene to life.
-    
-[4] should be a short concise description about the mood of the scene. Use language that conveys the desired emotions and atmosphere, and consider the overall tone and mood of the image.
-    
-[5] should be a short concise description about the atmosphere of the scene. Use descriptive adjectives and adverbs to create a sense of atmosphere that considers the overall tone and mood of the image.
-    
-[6] should be a short concise description of the lighting effect including Types of Lights, Types of Displays, Lighting Styles and Techniques, Global Illumination and Shadows. Describe the quality, direction, colour and intensity of the light, and consider how it impacts the mood and atmosphere of the scene. Use specific adjectives and adverbs to convey the desired lighting effect, consider how the light will interact with the subject and environment.
-    
-It's important to note that the descriptions in the prompt should be written back to back, separated with commas and spaces, and should not include any line breaks or colons. Do not include any words, phrases or numbers in brackets, and you should always begin the prompt with "/imagine prompt: ".
-    
-Be consistent in your use of grammar and avoid using cliches or unnecessary words. Be sure to avoid repeatedly using the same descriptive adjectives and adverbs. Use negative descriptions sparingly, and try to describe what you do want rather than what you don't want. Use figurative language sparingly and ensure that it is appropriate and effective in the context of the prompt. Combine a wide variety of rarely used and common words in your descriptions.
-     
-The "imagine prompt" should strictly contain under 1,500 words. Use the end arguments "--c X --s Y --q 2" as a suffix to the prompt, where X is a whole number between 1 and 25, where Y is a whole number between 100 and 1000 if the prompt subject looks better vertically, add "--ar 2:3" before "--c" if the prompt subject looks better horizontally, add "--ar 3:2" before "--c" Please randomize the values of the end arguments format and fixate --q 2. Please do not use double quotation marks or punctuation marks. Please use randomized end suffix format.` +
-      generateSelection("Text", "Midjourney Prompt"),
-    creativity: "high",
-    icon: "image",
-  },
-  // Inspired from SKaplan gist (https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588)
-  {
-    id: "generate-icons",
-    title: "Generate Icons",
-    prompt:
-      "Generate base64 data URIs of 100x100 SVG icons representing the text. Do not provide any commentary other than the list of data URIs as markdown images. For each icon, explain how it relates to the text." +
-      generateSelection("Text", "Icons"),
-    creativity: "maximum",
-    icon: "image",
-  },
-];
-
 const ideas: Prompt[] = [
   {
     id: "write-alternatives",
@@ -299,7 +319,6 @@ const ideas: Prompt[] = [
     creativity: "high",
     icon: "shuffle",
   },
-  // Inspired from SKaplan gist (https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588)
   {
     id: "project-ideas",
     title: "Project Ideas",
@@ -308,6 +327,10 @@ const ideas: Prompt[] = [
       generateSelection("Text", "Ideas"),
     creativity: "high",
     icon: "shuffle",
+    author: {
+      name: "Stephen Kaplan",
+      link: "https://github.com/SKaplanOfficial",
+    },
   },
   {
     id: "create-analogies",
@@ -379,12 +402,11 @@ const misc: Prompt[] = [
     id: "create-recipe",
     title: "Give Me a Recipe",
     prompt:
-      "Give me a recipe based on the ingredients delimited. The recipe should be easy to follow." +
+      "Give me a recipe based on the ingredients. The recipe should be easy to follow." +
       generateSelection("Ingredients", "Recipe"),
     creativity: "medium",
     icon: "bullet-points",
   },
-  // Inspired from SKaplan gist (https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588)
   {
     id: "create-action-items",
     title: "Create Action Items",
@@ -393,8 +415,11 @@ const misc: Prompt[] = [
       generateSelection("Text", "Action items"),
     creativity: "medium",
     icon: "check-circle",
+    author: {
+      name: "Stephen Kaplan",
+      link: "https://github.com/SKaplanOfficial",
+    },
   },
-  // Inspired from SKaplan gist (https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588)
   {
     id: "extract-email-addresses",
     title: "Extract Email Addresses",
@@ -403,8 +428,11 @@ const misc: Prompt[] = [
       generateSelection("Text", "Email addresses"),
     creativity: "low",
     icon: "envelope",
+    author: {
+      name: "Stephen Kaplan",
+      link: "https://github.com/SKaplanOfficial",
+    },
   },
-  // Inspired from SKaplan gist (https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588)
   {
     id: "extract-phone-numbers",
     title: "Extract Phone Numbers",
@@ -413,8 +441,11 @@ const misc: Prompt[] = [
       generateSelection("Text", "Phone numbers"),
     creativity: "low",
     icon: "phone",
+    author: {
+      name: "Stephen Kaplan",
+      link: "https://github.com/SKaplanOfficial",
+    },
   },
-  // Inspired from SKaplan gist (https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588)
   {
     id: "extract-links",
     title: "Extract Links",
@@ -423,8 +454,11 @@ const misc: Prompt[] = [
       generateSelection("Text", "Links"),
     creativity: "low",
     icon: "link",
+    author: {
+      name: "Stephen Kaplan",
+      link: "https://github.com/SKaplanOfficial",
+    },
   },
-  // Inspired from SKaplan gist (https://gist.github.com/SKaplanOfficial/484174135c26a0fb83c906a8ff149588)
   {
     id: "pros-and-cons",
     title: "Pros & Cons",
@@ -433,10 +467,14 @@ const misc: Prompt[] = [
       generateSelection("Text", "Pros & Cons"),
     creativity: "low",
     icon: "bullet-points",
+    author: {
+      name: "Stephen Kaplan",
+      link: "https://github.com/SKaplanOfficial",
+    },
   },
   {
     id: "eli",
-    title: "Explain Like I'm a...",
+    title: "Explain Like I'm a…",
     prompt:
       `Explain the text like I’m a {argument name=identity default="5 year old"}` +
       generateSelection("Text", "Explanation"),
