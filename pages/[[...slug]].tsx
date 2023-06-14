@@ -337,7 +337,7 @@ export default function Home({ onTouchReady }) {
                       </span>
                     </li>
                     <li>
-                      Copy URL to share
+                      Copy URL to Share
                       <span className={styles.hotkeys}>
                         <kbd>⌘</kbd>
                         <kbd>⇧</kbd>
@@ -442,7 +442,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedPromptsConfig.length === 0}
                     onSelect={() => handleCopyUrl()}
                   >
-                    <LinkIcon /> Copy URL to share{" "}
+                    <LinkIcon /> Copy URL to Share{" "}
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>⇧</kbd>
@@ -460,7 +460,7 @@ export default function Home({ onTouchReady }) {
               disabled={selectedPromptsConfig.length === 0}
               onClick={() => handleCopyUrl()}
             >
-              <LinkIcon /> Copy URL to share
+              <LinkIcon /> Copy URL to Share
             </Button>
           )}
         </div>
