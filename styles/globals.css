@@ -19,6 +19,7 @@ button {
     sans-serif;
   color: #fff;
   -webkit-text-size-adjust: 100%;
+  user-select: none;
 }
 
 #__next {
