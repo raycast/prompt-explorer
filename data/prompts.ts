@@ -1,4 +1,4 @@
-import { IconName, Icons } from "@raycast/icons";
+ import { IconName, Icons } from "@raycast/icons";
 import { SVGProps } from "react";
 
 export type Prompt = {
@@ -224,6 +224,34 @@ If there are no action items, the "Asked from you" section will be left empty.` 
       link: "https://github.com/nagauta",
     },
   },
+  {
+    id: "fill-the-gap",
+    title: "Fill in the gap",
+    prompt:
+      `Use the following instructions to rewrite the text
+
+Give me 5 words that most accurarely fill in the blank in a sentence.
+
+The bank is represented by a few underscores, such as ___, or ______.
+
+So for example: "I'm super ___ to announce my new product".
+
+1. I'm super happy to announce my new product 
+2. I'm super excited to announce my new product 
+3. I'm super pumped to announce my new product 
+4. I'm super proud to announce my new product 
+5. I'm super nervous to announce my new product 
+
+Now do the same for this sentece:` +
+      generateSelection("Text", "Rewritten text"),
+    creativity: "high",
+    date: "2023-08-03",
+    icon: "speech-bubble",
+    author: {
+      name: "peduarte",
+      link: "https://github.com/peduarte",
+    },
+  }  
 ];
 
 const image: Prompt[] = [
