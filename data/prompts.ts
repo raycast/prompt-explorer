@@ -1,4 +1,4 @@
- import { IconName, Icons } from "@raycast/icons";
+import { IconName, Icons } from "@raycast/icons";
 import { SVGProps } from "react";
 
 export type Prompt = {
