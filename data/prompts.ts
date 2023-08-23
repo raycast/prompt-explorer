@@ -617,7 +617,7 @@ const raycast: Prompt[] = [
     Use english language
     ${generateSelection("Text", "Improved Text")}`,
     creativity: "low",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -627,7 +627,7 @@ const raycast: Prompt[] = [
     prompt: `Act as a spelling corrector and improver. Rewrite the text with corrected spelling, grammar and punctuation. Use english language
     ${generateSelection("Text", "Fixed Text")}`,
     creativity: "low",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -644,7 +644,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Explanation")}`,
     creativity: "low",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -660,7 +660,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Expanded text")}`,
     creativity: "high",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -675,7 +675,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Expanded text")}`, 
     creativity: "high",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -694,7 +694,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Rewritten text")}`,
     creativity: "low",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -710,7 +710,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Rewritten text")}`,
     creativity: "low",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -729,7 +729,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Rewritten text")}`,
     creativity: "low",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -749,7 +749,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Rewritten text")}`,
     creativity: "low",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -773,7 +773,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Text", "Tweet")}`,
     creativity: "high",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -805,7 +805,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Code", "Explanation")}`,
     creativity: "medium",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
@@ -851,7 +851,7 @@ const raycast: Prompt[] = [
 
     ${generateSelection("Code", "Problems")}`,
     creativity: "medium",
-    date: "2023-08-21",
+    date: "2023-08-23",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
