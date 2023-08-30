@@ -134,13 +134,14 @@ export default function Home({ onTouchReady }) {
   const makePromptsImportData = React.useCallback(() => {
     return `[${selectedPromptsConfig
       .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon } = selectedPrompt;
+        const { title, prompt, creativity, icon, model } = selectedPrompt;
 
         return JSON.stringify({
           title,
           prompt,
           creativity,
           icon,
+          model,
         });
       })
       .join(",")}]`;
@@ -149,10 +150,10 @@ export default function Home({ onTouchReady }) {
   const makeQueryString = React.useCallback(() => {
     const queryString = selectedPromptsConfig
       .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon } = selectedPrompt;
+        const { title, prompt, creativity, icon, model } = selectedPrompt;
 
         return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, prompt, creativity, icon })
+          JSON.stringify({ title, prompt, creativity, icon, model })
         )}`;
       })
       .join("&");
