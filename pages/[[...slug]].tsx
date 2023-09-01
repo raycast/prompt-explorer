@@ -47,6 +47,13 @@ const raycastProtocolForEnvironments = {
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 
+const promptModel = {
+  openai_davinci_003: ["Davinci", "Davinci-3"],
+  openai_gpt35_turbo: ["GPT-3.5", "Open AI GPT-3.5 Turbo"],
+  openai_gpt4: ["GPT-4", "Open AI GPT-4"],
+  anthropic_claude: ["Claude", "Antrophic Claude"],
+};
+
 export function getStaticPaths() {
   const paths = categories.map((category) => ({
     params: { slug: [category.slug.replace("/", "")] },
@@ -621,6 +628,14 @@ export default function Home({ onTouchReady }) {
                                   </span>
                                 ) : null}
                               </span>
+                              {prompt.model ? (
+                                <span
+                                  className={styles.promptModel}
+                                  title={promptModel[prompt.model][1]}
+                                >
+                                  {promptModel[prompt.model][0]}
+                                </span>
+                              ) : null}
 
                               <CreativityIcon creativity={prompt.creativity} />
                             </div>
