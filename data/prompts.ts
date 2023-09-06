@@ -604,7 +604,7 @@ You can use the following template to create the summary:
 const raycast: Prompt[] = [
   {
     id: "improve-writing-custom",
-    title: "Improve Writting - Editable",
+    title: "Improve Writing - Editable",
     prompt: `Act as a spelling corrector and improver. Reply to each message with rewritten text using following instructions to rewrite it:
     - Fix spelling, grammar and punctuation
     - Improve clarity and conciseness
@@ -779,7 +779,7 @@ const raycast: Prompt[] = [
   },
   {
     id: "explain-code-custom",
-    title: "Explain Code - Editable",
+    title: "Explain Code Step by Step - Editable",
     prompt: `Act as a software engineer with deep understanding of any programming language and it's documentation.. Explain how the code works step by step in a list. Be concise with a casual tone of voice and write it as documentation for others.
     Code:
     \`\`\`
@@ -811,7 +811,7 @@ const raycast: Prompt[] = [
   },
   {
     id: "find-bugs-custom",
-    title: "Find Bugs - Editable",
+    title: "Find Bugs in Code - Editable",
     prompt: `Act as a software engineer with deep understanding of any programming language. Review the code to fix logical bugs in the code. Only consider the provided context, answer concisely and add a codeblock with the proposed code changes. If you can't confidently find bugs, answer with "LGTM 👍".
     Code:🚁
     \`\`\`
