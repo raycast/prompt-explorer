@@ -7,7 +7,11 @@ export type Prompt = {
   prompt: string;
   icon: IconName;
   creativity: "none" | "low" | "medium" | "high" | "maximum";
-  model?: "openai_davinci_003" | "openai_gpt35_turbo" | "openai_gpt4" | "anthropic_claude";
+  model?:
+    | "openai_davinci_003"
+    | "openai_gpt35_turbo"
+    | "openai_gpt4"
+    | "anthropic_claude";
   date: `${number}-${number}-${number}`;
   author?: {
     name: string;
@@ -252,7 +256,7 @@ Now do the same for this sentece:` +
       name: "peduarte",
       link: "https://github.com/peduarte",
     },
-  }  
+  },
 ];
 
 const image: Prompt[] = [
@@ -605,17 +609,17 @@ const raycast: Prompt[] = [
   {
     id: "improve-writing-custom",
     title: "Improve Writing - Editable",
-    prompt: `Act as a spelling corrector and improver. Reply to each message with rewritten text using following instructions to rewrite it:
-    - Fix spelling, grammar and punctuation
-    - Improve clarity and conciseness
-    - Break up overly long sentences
-    - Reduce repetition
-    - Prefer active voice
-    - Prefer simple words
-    - Keep the meaning same
-    - Keep the tone of voice same
-    Use english language
-    ${generateSelection("Text", "Improved Text")}`,
+    prompt:
+      `Act as a spelling corrector and improver. Reply to each message with rewritten text using following instructions to rewrite it:
+- Fix spelling, grammar and punctuation
+- Improve clarity and conciseness
+- Break up overly long sentences
+- Reduce repetition
+- Prefer active voice
+- Prefer simple words
+- Keep the meaning same
+- Keep the tone of voice same
+Use english language` + generateSelection("Text", "Improved Text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -624,8 +628,9 @@ const raycast: Prompt[] = [
   {
     id: "fix-spelling-and-grammar-custom",
     title: "Fix Spelling and Grammar - Editable",
-    prompt: `Act as a spelling corrector and improver. Rewrite the text with corrected spelling, grammar and punctuation. Use english language
-    ${generateSelection("Text", "Fixed Text")}`,
+    prompt:
+      `Act as a spelling corrector and improver. Rewrite the text with corrected spelling, grammar and punctuation. Use english language` +
+      generateSelection("Text", "Fixed Text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -634,15 +639,15 @@ const raycast: Prompt[] = [
   {
     id: "explain-this-in-simple-terms-custom",
     title: "Explain This in Simple Terms - Editable",
-    prompt: `Act as a dictionary and encyclopedia. Explain the text in a simple and concise language. If it's a single word, provide a short definition. If you can't confidently explain the text, answer with "That's something I can't explain 😥".
+    prompt:
+      `Act as a dictionary and encyclopedia. Explain the text in a simple and concise language. If it's a single word, provide a short definition. If you can't confidently explain the text, answer with "That's something I can't explain 😥".
 
-    Text:
-    Philosophy
+Text:
+Philosophy
 
-    Explanation:
-    Philosophy is the study of the fundamental nature of knowledge, reality, and existence. It is a system of ideas that attempts to explain the world and our place in it. Philosophers use logic and reason to explore the meaning of life and the universe.
-
-    ${generateSelection("Text", "Explanation")}`,
+Explanation:
+Philosophy is the study of the fundamental nature of knowledge, reality, and existence. It is a system of ideas that attempts to explain the world and our place in it. Philosophers use logic and reason to explore the meaning of life and the universe.` +
+      generateSelection("Text", "Explanation"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -651,14 +656,13 @@ const raycast: Prompt[] = [
   {
     id: "make-longer-custom",
     title: "Make Longer - Editable",
-    prompt: `Act as a content writer. Expand the text with the following instructions:
-    - Use the same style and tone of voice
-    - Expand the key information and concepts
-    - Avoid repetition
-    - Stay factual close to the provided text
-    Use english language
-
-    ${generateSelection("Text", "Expanded text")}`,
+    prompt:
+      `Act as a content writer. Expand the text with the following instructions:
+- Use the same style and tone of voice
+- Expand the key information and concepts
+- Avoid repetition
+- Stay factual close to the provided text
+Use english language` + generateSelection("Text", "Expanded text"),
     creativity: "high",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -667,13 +671,12 @@ const raycast: Prompt[] = [
   {
     id: "make-shorter-custom",
     title: "Make Shorter - Editable",
-    prompt: `Act as a content writer. Make the text shorter with the following instructions:
-    - Use the same style and tone of voice
-    - Reduce repetition
-    - Keep key information
-    Use english language
-
-    ${generateSelection("Text", "Expanded text")}`, 
+    prompt:
+      `Act as a content writer. Make the text shorter with the following instructions:
+- Use the same style and tone of voice
+- Reduce repetition
+- Keep key information
+Use english language` + generateSelection("Text", "Expanded text"),
     creativity: "high",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -682,17 +685,16 @@ const raycast: Prompt[] = [
   {
     id: "change-tone-to-professional",
     title: "Change Tone to Professional - Editable",
-    prompt: `Act as a professional content writer and editor. Rewrite the text to ensure:
-    - Professional tone of voice
-    - Formal language
-    - Accurate facts
-    - Correct spelling, grammar, and punctuation
-    - Concise phrasing
-    - meaning  unchanged
-    - Length retained
-    Use english language
-
-    ${generateSelection("Text", "Rewritten text")}`,
+    prompt:
+      `Act as a professional content writer and editor. Rewrite the text to ensure:
+- Professional tone of voice
+- Formal language
+- Accurate facts
+- Correct spelling, grammar, and punctuation
+- Concise phrasing
+- meaning  unchanged
+- Length retained
+Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -701,14 +703,13 @@ const raycast: Prompt[] = [
   {
     id: "change-tone-to-friendly",
     title: "Change Tone to Friendly - Editable",
-    prompt: `Act as a content writer and editor. Rewrite the text to ensure:
-    - Friendly and optimistic tone of voice
-    - Correct spelling, grammar, and punctuation
-    - Meaning unchanged
-    - Length retained
-    Use english language
-
-    ${generateSelection("Text", "Rewritten text")}`,
+    prompt:
+      `Act as a content writer and editor. Rewrite the text to ensure:
+- Friendly and optimistic tone of voice
+- Correct spelling, grammar, and punctuation
+- Meaning unchanged
+- Length retained
+Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -717,17 +718,16 @@ const raycast: Prompt[] = [
   {
     id: "change-tone-to-confident-custom",
     title: "Change Tone to Confident - Editable",
-    prompt: `Act as a content writer and editor. Rewrite the text with the following instructions:
-    - Use confident, formal and friendly tone of voice
-    - Avoid hedging, be definite where possible
-    - Skip apologies
-    - Focus on main arguments
-    - Correct spelling, grammar, and punctuation
-    - Keep meaning unchanged
-    - Keep length retained
-    Use english language
-
-    ${generateSelection("Text", "Rewritten text")}`,
+    prompt:
+      `Act as a content writer and editor. Rewrite the text with the following instructions:
+- Use confident, formal and friendly tone of voice
+- Avoid hedging, be definite where possible
+- Skip apologies
+- Focus on main arguments
+- Correct spelling, grammar, and punctuation
+- Keep meaning unchanged
+- Keep length retained
+Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -736,18 +736,17 @@ const raycast: Prompt[] = [
   {
     id: "change-tone-to-casual-custom",
     title: "Change Tone to Casual - Editable",
-    prompt: `Act as a content writer and editor. Rewrite the text with the following instructions:
-    - Use casual and friendly tone of voice
-    - Use active voice
-    - Keep sentences shorts
-    - Ok to use slang and contractions
-    - Keep grammatical person
-    - Correct spelling, grammar, and punctuation
-    - Keep meaning unchanged
-    - Keep length retained
-    Use english language
-
-    ${generateSelection("Text", "Rewritten text")}`,
+    prompt:
+      `Act as a content writer and editor. Rewrite the text with the following instructions:
+- Use casual and friendly tone of voice
+- Use active voice
+- Keep sentences shorts
+- Ok to use slang and contractions
+- Keep grammatical person
+- Correct spelling, grammar, and punctuation
+- Keep meaning unchanged
+- Keep length retained
+Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -756,22 +755,22 @@ const raycast: Prompt[] = [
   {
     id: "rephrase-as-tweet-custom",
     title: "Rephrase as Tweet - Editable",
-    prompt: `You're an expert in the field and have the perfect opportunity to share your ideas and insights with a huge audience!. Rewrite the text as a tweet that is:
-    - Casual and upbeat
-    - Creative and catchy
-    - Focused on key takeaways that challenge the status quo
-    - Engaging and punchy
-    - IMPORTANT: less than 25 words.
-    - IMPORTANT: doesn't include hash, hashtags and words starting with #, i.e. #innovation #Technology
-    Use english language
+    prompt:
+      `You're an expert in the field and have the perfect opportunity to share your ideas and insights with a huge audience! Rewrite the text as a tweet that is:
+- Casual and upbeat
+- Creative and catchy
+- Focused on key takeaways that challenge the status quo
+- Engaging and punchy
+- IMPORTANT: less than 25 words.
+- IMPORTANT: doesn't include hash, hashtags and words starting with #, i.e. #innovation #Technology
+Use english language
 
-    Text:
-    The concept of Rayday is simple. Every Friday, everyone can use the day to work on something that benefits Raycast. From new features, to fixing bugs, drafting documentation or tidying up, it’s time for us to take a break from project work. As well as getting creative with our own ideas, it’s a great chance to act on feedback from our users and community too.
+Text:
+The concept of Rayday is simple. Every Friday, everyone can use the day to work on something that benefits Raycast. From new features, to fixing bugs, drafting documentation or tidying up, it’s time for us to take a break from project work. As well as getting creative with our own ideas, it’s a great chance to act on feedback from our users and community too.
 
-    Tweet:
-    ⚒️ We hack every Friday – we call it 'Rayday'. Everyone can use the day to work on something that benefits Raycast – aside from normal project work.
-
-    ${generateSelection("Text", "Tweet")}`,
+Tweet:
+⚒️ We hack every Friday – we call it 'Rayday'. Everyone can use the day to work on something that benefits Raycast – aside from normal project work.` +
+      generateSelection("Text", "Tweet"),
     creativity: "high",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -780,30 +779,32 @@ const raycast: Prompt[] = [
   {
     id: "explain-code-custom",
     title: "Explain Code Step by Step - Editable",
-    prompt: `Act as a software engineer with deep understanding of any programming language and it's documentation.. Explain how the code works step by step in a list. Be concise with a casual tone of voice and write it as documentation for others.
-    Code:
-    \`\`\`
-    function GoToPreviousPageAction() {
-      const [page, setPage] = useGlobalState("page");
-      return (
-        <Action
-          icon={Icon.ArrowLeftCircle}
-          title="Go to Previous Page"
-          shortcut={{ modifiers: ["cmd"], key: "[" }}
-          onAction={() => setPage(Math.max(page - 1, 0))}
-        />
-      );
-    }
-    \`\`\`
-    Explanation:
-    The code is a React component that goes to the previous page.
-    1. The component renders an 'Action' component with an icon, title, and shortcut.
-    3. The 'useGlobalState' hook is used to get the current page number from the global state.
-    4. The 'onAction' prop is used to set the page number to one less than the current page number.
-    5. This will cause the page to go back one page when the action is taken.
-    6. The page is capped at 0 so that the page is never negative.
+    prompt:
+      `Act as a software engineer with deep understanding of any programming language and it's documentation.. Explain how the code works step by step in a list. Be concise with a casual tone of voice and write it as documentation for others.
 
-    ${generateSelection("Code", "Explanation")}`,
+Code:
+\`\`\`
+function GoToPreviousPageAction() {
+  const [page, setPage] = useGlobalState("page");
+  return (
+    <Action
+      icon={Icon.ArrowLeftCircle}
+      title="Go to Previous Page"
+      shortcut={{ modifiers: ["cmd"], key: "[" }}
+      onAction={() => setPage(Math.max(page - 1, 0))}
+    />
+  );
+}
+\`\`\`
+
+Explanation:
+The code is a React component that goes to the previous page.
+1. The component renders an 'Action' component with an icon, title, and shortcut.
+3. The 'useGlobalState' hook is used to get the current page number from the global state.
+4. The 'onAction' prop is used to set the page number to one less than the current page number.
+5. This will cause the page to go back one page when the action is taken.
+6. The page is capped at 0 so that the page is never negative.` +
+      generateSelection("Code", "Explanation"),
     creativity: "medium",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
@@ -812,50 +813,53 @@ const raycast: Prompt[] = [
   {
     id: "find-bugs-custom",
     title: "Find Bugs in Code - Editable",
-    prompt: `Act as a software engineer with deep understanding of any programming language. Review the code to fix logical bugs in the code. Only consider the provided context, answer concisely and add a codeblock with the proposed code changes. If you can't confidently find bugs, answer with "LGTM 👍".
-    Code:🚁
-    \`\`\`
-    function PrevAction() {
-      const [page, setPage] = useGlobalState("page");
-      return (
-        <Action
-          title="Go to Previous Page"
-          onAction={() => setPage(page - 1)}
-        />
-      );
-    }
-    \`\`\`
-    Review:
-    The code is missing a check to make sure 'page' is greater than 0 before subtracting 1. Otherwise, the page could be set to -1 which might cause unexpected behavior.
-    \`\`\`
-    function PrevAction() {
-      const [page, setPage] = useGlobalState("page");
-      return (
-        <Action
-          title="Go to Previous Page"
-          onAction={() => setPage(Math.max(page - 1, 0))}
-        />
-      );
-    }
-    \`\`\`
-    Code:
-    \`\`\`
-    private func submit(_ text: String) {
-      guard !text.isEmpty else { return }
-      let prompt = OpenAIPrompt(prompt: text, imitateChatGPT: true)
-      submit(prompt)
-    }
-    \`\`\`
-    Problems:
-    Nothing found - LGTM 👌
+    prompt:
+      `Act as a software engineer with deep understanding of any programming language. Review the code to fix logical bugs in the code. Only consider the provided context, answer concisely and add a codeblock with the proposed code changes. If you can't confidently find bugs, answer with "LGTM 👍".
+    
+Code:
+\`\`\`
+function PrevAction() {
+  const [page, setPage] = useGlobalState("page");
+  return (
+    <Action
+      title="Go to Previous Page"
+      onAction={() => setPage(page - 1)}
+    />
+  );
+}
+\`\`\`
 
-    ${generateSelection("Code", "Problems")}`,
+Review:
+The code is missing a check to make sure 'page' is greater than 0 before subtracting 1. Otherwise, the page could be set to -1 which might cause unexpected behavior.
+\`\`\`
+function PrevAction() {
+  const [page, setPage] = useGlobalState("page");
+  return (
+    <Action
+      title="Go to Previous Page"
+      onAction={() => setPage(Math.max(page - 1, 0))}
+    />
+  );
+}
+\`\`\`
+
+Code:
+\`\`\`
+private func submit(_ text: String) {
+  guard !text.isEmpty else { return }
+  let prompt = OpenAIPrompt(prompt: text, imitateChatGPT: true)
+  submit(prompt)
+}
+\`\`\`
+
+Problems:
+Nothing found - LGTM 👌` + generateSelection("Code", "Problems"),
     creativity: "medium",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
     model: "openai_gpt35_turbo",
   },
-]
+];
 
 type IconComponent = (props: SVGProps<SVGSVGElement>) => JSX.Element;
 
