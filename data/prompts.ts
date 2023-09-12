@@ -237,7 +237,7 @@ If there are no action items, the "Asked from you" section will be left empty.` 
 
 Give me 5 words that most accurarely fill in the blank in a sentence.
 
-The bank is represented by a few underscores, such as ___, or ______.
+The blank is represented by a few underscores, such as ___, or ______.
 
 So for example: "I'm super ___ to announce my new product".
 
