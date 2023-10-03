@@ -469,13 +469,15 @@
 }
 
 .logo {
+  all: unset;
   position: relative;
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
 
-  &:hover {
+  &:hover,
+  &:focus-visible {
     background-color: #282b3580;
     border-radius: 8px;
   }
@@ -484,11 +486,6 @@
     width: 30px;
     height: 30px;
     color: #ff6363;
-  }
-
-  .separator {
-    height: 30px;
-    border-right: 1px solid #282b35;
   }
 
   h2 {
@@ -505,6 +502,11 @@
       height: 36px;
     }
   }
+}
+
+.logoSeparator {
+  height: 30px;
+  border-right: 1px solid #282b35;
 }
 
 .about {
