@@ -277,12 +277,10 @@ export default function Home({ onTouchReady }) {
       <header className={styles.nav}>
         <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
           <DialogTrigger asChild>
-            <button style={{ all: "unset" }}>
-              <div className={styles.logo}>
-                <RaycastLogoNegIcon />
-                <div className={styles.separator} aria-hidden="true"></div>
-                <h2>Prompt Explorer</h2>
-              </div>
+            <button className={styles.logo}>
+              <RaycastLogoNegIcon />
+              <div className={styles.logoSeparator} aria-hidden="true"></div>
+              <h2>Prompt Explorer</h2>
             </button>
           </DialogTrigger>
           <DialogContent className={styles.about} showCloseButton={true}>
