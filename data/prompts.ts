@@ -180,6 +180,19 @@ If there are no action items, the "Asked from you" section will be left empty.` 
     creativity: "medium",
     icon: "calendar",
   },
+  {
+    id: "break-up-wall-of-text",
+    title: "Break Up Wall of Text",
+    prompt: `Take the wall of text below and write a cleaned up version inserting naturally appropriate paragraph breaks. It's important that the text not change, only whitespace.
+
+Wall of text:
+{selection}
+
+Cleaned up version:
+`,
+    creativity: "none",
+    icon: "paragraph",
+  },
 ];
 
 const writing: Prompt[] = [
