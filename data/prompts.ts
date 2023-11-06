@@ -225,22 +225,6 @@ Cleaned up version:
     date: "2023-11-06",
     icon: "paragraph",
   },
-];
-
-const writing: Prompt[] = [
-  {
-    id: "write-story",
-    title: "Write a Story",
-    prompt:
-      "Write a story based on the text. Make the story engaging. The story shouldn't be more than {argument name=number default=500} words." +
-      generateSelection("Text", "Story"),
-    creativity: "high",
-    icon: "pencil",
-    author: {
-      name: "Roel Van Gils",
-      link: "https://github.com/roelvangils",
-    },
-  },
   {
     id: "summarize-and-sympathize",
     title: "Summarize and sympathize text",
