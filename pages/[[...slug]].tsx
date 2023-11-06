@@ -47,6 +47,13 @@ const raycastProtocolForEnvironments = {
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 
+const promptModel = {
+  openai_davinci_003: ["Davinci", "Davinci-3"],
+  openai_gpt35_turbo: ["GPT-3.5", "Open AI GPT-3.5 Turbo"],
+  openai_gpt4: ["GPT-4", "Open AI GPT-4"],
+  anthropic_claude: ["Claude", "Antrophic Claude"],
+};
+
 export function getStaticPaths() {
   const paths = categories.map((category) => ({
     params: { slug: [category.slug.replace("/", "")] },
@@ -134,13 +141,14 @@ export default function Home({ onTouchReady }) {
   const makePromptsImportData = React.useCallback(() => {
     return `[${selectedPromptsConfig
       .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon } = selectedPrompt;
+        const { title, prompt, creativity, icon, model } = selectedPrompt;
 
         return JSON.stringify({
           title,
           prompt,
           creativity,
           icon,
+          model,
         });
       })
       .join(",")}]`;
@@ -149,10 +157,10 @@ export default function Home({ onTouchReady }) {
   const makeQueryString = React.useCallback(() => {
     const queryString = selectedPromptsConfig
       .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon } = selectedPrompt;
+        const { title, prompt, creativity, icon, model } = selectedPrompt;
 
         return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, prompt, creativity, icon })
+          JSON.stringify({ title, prompt, creativity, icon, model })
         )}`;
       })
       .join("&");
@@ -269,12 +277,10 @@ export default function Home({ onTouchReady }) {
       <header className={styles.nav}>
         <Dialog open={aboutOpen} onOpenChange={setAboutOpen}>
           <DialogTrigger asChild>
-            <button style={{ all: "unset" }}>
-              <div className={styles.logo}>
-                <RaycastLogoNegIcon />
-                <div className={styles.separator} aria-hidden="true"></div>
-                <h2>Prompt Explorer</h2>
-              </div>
+            <button className={styles.logo}>
+              <RaycastLogoNegIcon />
+              <div className={styles.logoSeparator} aria-hidden="true"></div>
+              <h2>Prompt Explorer</h2>
             </button>
           </DialogTrigger>
           <DialogContent className={styles.about} showCloseButton={true}>
@@ -337,7 +343,7 @@ export default function Home({ onTouchReady }) {
                       </span>
                     </li>
                     <li>
-                      Copy URL to share
+                      Copy URL to Share
                       <span className={styles.hotkeys}>
                         <kbd>⌘</kbd>
                         <kbd>⇧</kbd>
@@ -442,7 +448,7 @@ export default function Home({ onTouchReady }) {
                     disabled={selectedPromptsConfig.length === 0}
                     onSelect={() => handleCopyUrl()}
                   >
-                    <LinkIcon /> Copy URL to share{" "}
+                    <LinkIcon /> Copy URL to Share{" "}
                     <span className={styles.hotkeys}>
                       <kbd>⌘</kbd>
                       <kbd>⇧</kbd>
@@ -460,7 +466,7 @@ export default function Home({ onTouchReady }) {
               disabled={selectedPromptsConfig.length === 0}
               onClick={() => handleCopyUrl()}
             >
-              <LinkIcon /> Copy URL to share
+              <LinkIcon /> Copy URL to Share
             </Button>
           )}
         </div>
@@ -603,7 +609,31 @@ export default function Home({ onTouchReady }) {
                               <span className={styles.name}>
                                 <prompt.iconComponent />
                                 {prompt.title}
+                                {prompt.author ? (
+                                  <span className={styles.promptAuthor}>
+                                    by{" "}
+                                    {prompt.author.link ? (
+                                      <a
+                                        href={prompt.author.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                      >
+                                        {prompt.author.name}
+                                      </a>
+                                    ) : (
+                                      prompt.author.name
+                                    )}
+                                  </span>
+                                ) : null}
                               </span>
+                              {prompt.model ? (
+                                <span
+                                  className={styles.promptModel}
+                                  title={promptModel[prompt.model][1]}
+                                >
+                                  {promptModel[prompt.model][0]}
+                                </span>
+                              ) : null}
 
                               <CreativityIcon creativity={prompt.creativity} />
                             </div>
