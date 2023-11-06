@@ -210,6 +210,10 @@ If there are no action items, the "Asked from you" section will be left empty.` 
     creativity: "medium",
     date: "2023-06-06",
     icon: "calendar",
+    author: {
+      name: "Roel Van Gils",
+      link: "https://github.com/roelvangils",
+    },
   },
   {
     id: "break-up-wall-of-text",
