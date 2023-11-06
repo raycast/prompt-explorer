@@ -183,7 +183,7 @@ If there are no action items, the "Asked from you" section will be left empty.` 
   {
     id: "break-up-wall-of-text",
     title: "Break Up Wall of Text",
-    prompt: `Take the wall of text below and write a cleaned up version inserting naturally appropriate paragraph breaks. It's important that the text not change, only whitespace.
+    prompt: `Take the wall of text below and write a cleaned up version inserting naturally appropriate paragraph breaks. It's important that the text does not change, only the whitespace.
 
 Wall of text:
 {selection}
@@ -191,6 +191,7 @@ Wall of text:
 Cleaned up version:
 `,
     creativity: "none",
+    date: "2023-11-06"
     icon: "paragraph",
   },
 ];
