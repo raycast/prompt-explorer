@@ -29,6 +29,7 @@ import { categories, Category, Prompt } from "../data/prompts";
 import styles from "../styles/Home.module.css";
 import { Instructions } from "../components/Instructions";
 import { useSectionInView } from "../utils/useSectionInViewObserver";
+import { extractPrompts } from "../utils/extractPrompts";
 import CreativityIcon from "../components/CreativityIcon";
 import {
   ChevronDownIcon,
@@ -44,6 +45,7 @@ import {
 const raycastProtocolForEnvironments = {
   development: "raycastinternal",
   production: "raycast",
+  test: "raycastinternal",
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 
@@ -76,7 +78,7 @@ export async function getStaticProps() {
   };
 }
 
-export default function Home({ onTouchReady }) {
+export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
   const router = useRouter();
 
   const [selectedPrompts, setSelectedPrompts] = React.useState<Prompt[]>([]);
@@ -84,12 +86,9 @@ export default function Home({ onTouchReady }) {
 
   const [actionsOpen, setActionsOpen] = React.useState(false);
   const [aboutOpen, setAboutOpen] = React.useState(false);
-  const [isTouch, setIsTouch] = React.useState(null);
+  const [isTouch, setIsTouch] = React.useState<boolean>();
 
   const selectedPromptsConfig = selectedPrompts;
-
-  const extractIds = (els: Element[]) =>
-    els.map((v) => v.getAttribute("data-key"));
 
   const onStart = ({ event, selection }: SelectionEvent) => {
     if (!isTouch && !event?.ctrlKey && !event?.metaKey) {
@@ -103,38 +102,27 @@ export default function Home({ onTouchReady }) {
       changed: { added, removed },
     },
   }: SelectionEvent) => {
-    const addedIds = extractIds(added);
-    const removedIds = extractIds(removed);
+    const addedPrompts = extractPrompts(added, categories);
+    const removedPrompts = extractPrompts(removed, categories);
 
-    const addedPrompts = addedIds.map((id) => {
-      const [slug, index] = id.split("-");
-      const promptCategory = categories.find(
-        (category) => category.slug === slug
-      );
-      return promptCategory.prompts[index];
-    });
+    setSelectedPrompts((prevPrompts) => {
+      const prompts = [...prevPrompts];
 
-    addedPrompts.forEach((prompt) => {
-      setSelectedPrompts((prevPrompts) => {
-        if (prevPrompts.find((c) => c.id === prompt.id)) {
-          return prevPrompts;
+      addedPrompts.forEach((prompt) => {
+        if (!prompt) {
+          return;
         }
-        return [...prevPrompts, prompt];
+        if (prompts.find((p) => p.id === prompt.id)) {
+          return;
+        }
+        prompts.push(prompt);
       });
-    });
 
-    const removedPrompts = removedIds.map((id) => {
-      const [slug, index] = id.split("-");
-      const promptCategory = categories.find(
-        (category) => category.slug === slug
-      );
-      return promptCategory.prompts[index];
-    });
-
-    removedPrompts.forEach((prompt) => {
-      setSelectedPrompts((prevPrompts) => {
-        return prevPrompts.filter((c) => c.id !== prompt.id);
+      removedPrompts.forEach((prompt) => {
+        return prompts.filter((s) => s?.id !== prompt?.id);
       });
+
+      return prompts;
     });
   };
 
@@ -166,6 +154,7 @@ export default function Home({ onTouchReady }) {
       .join("&");
     return queryString;
   }, [selectedPromptsConfig]);
+
   const handleDownload = React.useCallback(() => {
     const encodedPromptsData = encodeURIComponent(makePromptsImportData());
     const jsonString = `data:text/json;chatset=utf-8,${encodedPromptsData}`;
@@ -199,7 +188,7 @@ export default function Home({ onTouchReady }) {
   }, [isTouch, setIsTouch, onTouchReady]);
 
   React.useEffect(() => {
-    const down = (event) => {
+    const down = (event: KeyboardEvent) => {
       const { key, keyCode, metaKey, shiftKey, altKey } = event;
 
       if (key === "k" && metaKey) {

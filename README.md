@@ -2,7 +2,7 @@
 <p align="center">
   <a href="https://prompts.ray.so" target="_blank" rel="noopener noreferrer">
     <img width="1024" src="https://prompts.ray.so/og-image.png" alt="Prompt Explorer">
-  </a> 
+  </a>
 </p>
 <h1 align="center">
   Prompt Explorer
@@ -30,9 +30,9 @@ npm run dev
 
 ### Prompts
 
-We welcome contribution to the prompts data. Here's how you can contribute:
+We welcome contributions to the prompts data. Here's how you can contribute:
 
 - Open `./data/prompts.ts`
 - Add your prompt to the relevant category
-  - Ensure it includes all fields, and that they're unique within its category
+  - Ensure it includes all fields, and that they're unique within their category
 - Create a pull request 🚀

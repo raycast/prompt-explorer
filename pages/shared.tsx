@@ -16,6 +16,7 @@ import { ScrollArea } from "../components/ScrollArea";
 import { Button } from "../components/Button";
 import { ButtonGroup } from "../components/ButtonGroup";
 import { isTouchDevice } from "../utils/isTouchDevice";
+import { extractPrompts } from "../utils/extractPrompts";
 import styles from "../styles/Home.module.css";
 import buttonStyles from "../components/Button.module.css";
 import { Prompt } from "../data/prompts";
@@ -32,20 +33,35 @@ import {
 const raycastProtocolForEnvironments = {
   development: "raycastinternal",
   production: "raycast",
+  test: "raycastinternal",
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 
 export default function Home() {
   const router = useRouter();
 
-  const [selectedPrompts, setSelectedPrompts] = React.useState<Prompt[]>([]);
   const [copied, setCopied] = React.useState(false);
 
   const [actionsOpen, setActionsOpen] = React.useState(false);
-  const [sharedPromptsInURL, setSharedPromptsInURL] = React.useState([]);
-  const [isTouch, setIsTouch] = React.useState(null);
+  const sharedPromptsInURL = React.useMemo(
+    () => formatURLPrompt(router.query.prompts),
+    [router.query]
+  );
+  const [selectedPrompts, setSelectedPrompts] = React.useState<Prompt[]>([
+    ...sharedPromptsInURL,
+  ]);
+  const isTouch = React.useMemo(
+    () => (typeof window !== "undefined" ? isTouchDevice() : false),
+    []
+  );
 
-  const sharedPromptsGroup = [
+  React.useEffect(() => {
+    // everytime the sharedPromptsInURL changes, we want to update the selectedPrompts
+    // so that we start with the shared prompts selected
+    setSelectedPrompts([...sharedPromptsInURL]);
+  }, [sharedPromptsInURL]);
+
+  const categories = [
     {
       name: `${sharedPromptsInURL.length} ${
         sharedPromptsInURL.length > 1 ? "prompts" : "prompt"
@@ -57,11 +73,6 @@ export default function Home() {
       icon: StarsIcon,
     },
   ];
-
-  const selectedPromptsConfig = selectedPrompts;
-
-  const extractIds = (els: Element[]) =>
-    els.map((v) => v.getAttribute("data-key"));
 
   const onStart = ({ event, selection }: SelectionEvent) => {
     if (!event?.ctrlKey && !event?.metaKey) {
@@ -75,62 +86,38 @@ export default function Home() {
       changed: { added, removed },
     },
   }: SelectionEvent) => {
-    const addedIds = extractIds(added);
-    const removedIds = extractIds(removed);
+    const addedPrompts = extractPrompts(added, categories);
+    const removedPrompts = extractPrompts(removed, categories);
 
-    const addedPrompts = addedIds.map((id) => {
-      const [slug, index] = id.split("-");
-      const promptCategory = sharedPromptsGroup.find(
-        (prompt) => prompt.slug === slug
-      );
+    setSelectedPrompts((prevPrompts) => {
+      const prompts = [...prevPrompts];
 
-      return promptCategory.prompts[index];
-    });
-
-    addedPrompts.forEach((prompt) => {
-      setSelectedPrompts((prevPrompts) => {
-        if (prevPrompts.find((p) => p.id === prompt.id)) {
-          return prevPrompts;
+      addedPrompts.forEach((prompt) => {
+        if (!prompt) {
+          return;
         }
-        return [...prevPrompts, prompt];
+        if (prompts.find((p) => p.id === prompt.id)) {
+          return;
+        }
+        prompts.push(prompt);
       });
-    });
 
-    const removedPrompts = removedIds.map((id) => {
-      const [slug, index] = id.split("-");
-      const promptCategory = sharedPromptsGroup.find(
-        (prompt) => prompt.slug === slug
-      );
-      return promptCategory.prompts[index];
-    });
-
-    removedPrompts.forEach((prompt) => {
-      setSelectedPrompts((prevPrompts) => {
-        return prevPrompts.filter((s) => s?.id !== prompt?.id);
+      removedPrompts.forEach((prompt) => {
+        return prompts.filter((s) => s?.id !== prompt?.id);
       });
+
+      return prompts;
     });
   };
 
   const makePromptImportData = React.useCallback(() => {
-    return `[${selectedPromptsConfig
+    return `[${selectedPrompts
       .map((selectedPrompt) => {
         const { title, prompt, creativity, icon } = selectedPrompt;
         return JSON.stringify({ title, prompt, creativity, icon });
       })
       .join(",")}]`;
-  }, [selectedPromptsConfig]);
-
-  const makeQueryString = React.useCallback(() => {
-    const queryString = selectedPromptsConfig
-      .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon } = selectedPrompt;
-        return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, prompt, creativity, icon: icon + "-16" })
-        )}`;
-      })
-      .join("&");
-    return queryString;
-  }, [selectedPromptsConfig]);
+  }, [selectedPrompts]);
 
   const handleDownload = React.useCallback(() => {
     const encodedPromptsData = encodeURIComponent(makePromptImportData());
@@ -145,52 +132,45 @@ export default function Home() {
     copy(makePromptImportData());
     setCopied(true);
   }, [makePromptImportData]);
-  const handleAddToRaycast = React.useCallback(
-    () =>
-      router.replace(
-        `${raycastProtocol}://prompts/import?${makeQueryString()}`
-      ),
-    [router, makeQueryString]
-  );
+
+  const handleAddToRaycast = React.useCallback(() => {
+    const queryString = selectedPrompts
+      .map((selectedPrompt) => {
+        const { title, prompt, creativity, icon } = selectedPrompt;
+        return `prompts=${encodeURIComponent(
+          JSON.stringify({ title, prompt, creativity, icon: icon + "-16" })
+        )}`;
+      })
+      .join("&");
+    return router.replace(`${raycastProtocol}://prompts/import?${queryString}`);
+  }, [router, selectedPrompts]);
 
   React.useEffect(() => {
-    setIsTouch(isTouchDevice());
-  }, [isTouch, setIsTouch]);
-
-  React.useEffect(() => {
-    if (router.query.prompts) {
-      setSharedPromptsInURL(formatURLPrompt(router.query.prompts));
-    } else {
-      setSharedPromptsInURL([]);
-    }
-  }, [router.query]);
-
-  React.useEffect(() => {
-    const down = (event) => {
+    const down = (event: KeyboardEvent) => {
       const { key, keyCode, metaKey, altKey } = event;
 
       if (key === "k" && metaKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         setActionsOpen((prevOpen) => {
           return !prevOpen;
         });
       }
 
       if (key === "d" && metaKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         event.preventDefault();
         handleDownload();
       }
 
       if (key === "Enter" && metaKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         event.preventDefault();
         handleAddToRaycast();
       }
 
       // key === "c" doesn't work when using alt key, so we use keCode instead (67)
       if (keyCode === 67 && metaKey && altKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         event.preventDefault();
         handleCopyData();
         setActionsOpen(false);
@@ -207,7 +187,7 @@ export default function Home() {
   }, [
     sharedPromptsInURL,
     setActionsOpen,
-    selectedPromptsConfig,
+    selectedPrompts,
     handleCopyData,
     handleDownload,
     handleAddToRaycast,
@@ -245,7 +225,7 @@ export default function Home() {
           <ButtonGroup>
             <Button
               variant="red"
-              disabled={selectedPromptsConfig.length === 0}
+              disabled={selectedPrompts.length === 0}
               onClick={() => handleAddToRaycast()}
             >
               <PlusCircleIcon /> Add to Raycast
@@ -255,7 +235,7 @@ export default function Home() {
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="red"
-                  disabled={selectedPromptsConfig.length === 0}
+                  disabled={selectedPrompts.length === 0}
                   aria-label="Export options"
                 >
                   <ChevronDownIcon />
@@ -263,7 +243,7 @@ export default function Home() {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem
-                  disabled={selectedPromptsConfig.length === 0}
+                  disabled={selectedPrompts.length === 0}
                   onSelect={() => handleDownload()}
                 >
                   <DownloadIcon /> Download JSON
@@ -273,7 +253,7 @@ export default function Home() {
                   </span>
                 </DropdownMenuItem>
                 <DropdownMenuItem
-                  disabled={selectedPromptsConfig.length === 0}
+                  disabled={selectedPrompts.length === 0}
                   onSelect={() => handleCopyData()}
                 >
                   <CopyClipboardIcon /> Copy JSON{" "}
@@ -314,7 +294,7 @@ export default function Home() {
                 },
               }}
             >
-              {sharedPromptsGroup.map((promptGroup) => {
+              {categories.map((promptGroup) => {
                 return (
                   <div
                     key={promptGroup.name}
@@ -375,7 +355,10 @@ export default function Home() {
   );
 }
 
-function formatURLPrompt(promptQueryString) {
+function formatURLPrompt(promptQueryString?: string | string[]): Prompt[] {
+  if (!promptQueryString) {
+    return [];
+  }
   let prompts;
   if (Array.isArray(promptQueryString)) {
     prompts = promptQueryString;
