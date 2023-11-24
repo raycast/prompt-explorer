@@ -88,8 +88,6 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
   const [aboutOpen, setAboutOpen] = React.useState(false);
   const [isTouch, setIsTouch] = React.useState<boolean>();
 
-  const selectedPromptsConfig = selectedPrompts;
-
   const onStart = ({ event, selection }: SelectionEvent) => {
     if (!isTouch && !event?.ctrlKey && !event?.metaKey) {
       selection.clearSelection();
@@ -127,7 +125,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
   };
 
   const makePromptsImportData = React.useCallback(() => {
-    return `[${selectedPromptsConfig
+    return `[${selectedPrompts
       .map((selectedPrompt) => {
         const { title, prompt, creativity, icon, model } = selectedPrompt;
 
@@ -140,10 +138,10 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
         });
       })
       .join(",")}]`;
-  }, [selectedPromptsConfig]);
+  }, [selectedPrompts]);
 
   const makeQueryString = React.useCallback(() => {
-    const queryString = selectedPromptsConfig
+    const queryString = selectedPrompts
       .map((selectedPrompt) => {
         const { title, prompt, creativity, icon, model } = selectedPrompt;
 
@@ -153,7 +151,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
       })
       .join("&");
     return queryString;
-  }, [selectedPromptsConfig]);
+  }, [selectedPrompts]);
 
   const handleDownload = React.useCallback(() => {
     const encodedPromptsData = encodeURIComponent(makePromptsImportData());
@@ -192,27 +190,27 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
       const { key, keyCode, metaKey, shiftKey, altKey } = event;
 
       if (key === "k" && metaKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         setActionsOpen((prevOpen) => {
           return !prevOpen;
         });
       }
 
       if (key === "d" && metaKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         event.preventDefault();
         handleDownload();
       }
 
       if (key === "Enter" && metaKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         event.preventDefault();
         handleAddToRaycast();
       }
 
       // key === "c" doesn't work when using alt key, so we use keCode instead (67)
       if (keyCode === 67 && metaKey && altKey) {
-        if (selectedPromptsConfig.length === 0) return;
+        if (selectedPrompts.length === 0) return;
         event.preventDefault();
         handleCopyData();
         setActionsOpen(false);
@@ -246,7 +244,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
   }, [
     setActionsOpen,
     setAboutOpen,
-    selectedPromptsConfig,
+    selectedPrompts,
     handleCopyData,
     handleDownload,
     handleCopyUrl,
@@ -395,7 +393,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
             <ButtonGroup>
               <Button
                 variant="red"
-                disabled={selectedPromptsConfig.length === 0}
+                disabled={selectedPrompts.length === 0}
                 onClick={() => handleAddToRaycast()}
               >
                 <PlusCircleIcon /> Add to Raycast
@@ -405,7 +403,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant="red"
-                    disabled={selectedPromptsConfig.length === 0}
+                    disabled={selectedPrompts.length === 0}
                     aria-label="Export options"
                   >
                     <ChevronDownIcon />
@@ -413,7 +411,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuItem
-                    disabled={selectedPromptsConfig.length === 0}
+                    disabled={selectedPrompts.length === 0}
                     onSelect={() => handleDownload()}
                   >
                     <DownloadIcon /> Download JSON
@@ -423,7 +421,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
                     </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    disabled={selectedPromptsConfig.length === 0}
+                    disabled={selectedPrompts.length === 0}
                     onSelect={() => handleCopyData()}
                   >
                     <CopyClipboardIcon /> Copy JSON{" "}
@@ -434,7 +432,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
                     </span>
                   </DropdownMenuItem>
                   <DropdownMenuItem
-                    disabled={selectedPromptsConfig.length === 0}
+                    disabled={selectedPrompts.length === 0}
                     onSelect={() => handleCopyUrl()}
                   >
                     <LinkIcon /> Copy URL to Share{" "}
@@ -452,7 +450,7 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
           ) : (
             <Button
               variant="red"
-              disabled={selectedPromptsConfig.length === 0}
+              disabled={selectedPrompts.length === 0}
               onClick={() => handleCopyUrl()}
             >
               <LinkIcon /> Copy URL to Share
@@ -480,26 +478,24 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
                   ))}
                 </div>
 
-                {selectedPromptsConfig.length === 0 && <Instructions />}
+                {selectedPrompts.length === 0 && <Instructions />}
 
-                {selectedPromptsConfig.length > 0 && (
+                {selectedPrompts.length > 0 && (
                   <div>
                     <p className={styles.sidebarTitle}>Add to Raycast</p>
 
                     <Collapsible.Root>
                       <Collapsible.Trigger asChild>
                         <button className={styles.summaryTrigger}>
-                          {selectedPromptsConfig.length}{" "}
-                          {selectedPromptsConfig.length > 1
-                            ? "Prompts"
-                            : "Prompt"}{" "}
+                          {selectedPrompts.length}{" "}
+                          {selectedPrompts.length > 1 ? "Prompts" : "Prompt"}{" "}
                           selected
                           <ChevronDownIcon />
                         </button>
                       </Collapsible.Trigger>
 
                       <Collapsible.Content className={styles.summaryContent}>
-                        {selectedPromptsConfig.map((prompt, index) => (
+                        {selectedPrompts.map((prompt, index) => (
                           <div
                             key={prompt.title + index}
                             className={styles.summaryItem}

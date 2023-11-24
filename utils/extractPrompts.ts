@@ -1,5 +1,3 @@
-import type { Prompt, Category } from "../data/prompts";
-
 export function extractPrompts<T>(
   els: Element[],
   categories: { slug: string; prompts: T[] }[]

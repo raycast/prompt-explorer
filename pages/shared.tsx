@@ -44,10 +44,10 @@ export default function Home() {
 
   const [actionsOpen, setActionsOpen] = React.useState(false);
   const sharedPromptsInURL = React.useMemo(
-    () => formatURLPrompt(router.query.prompts),
+    () => parseURLPrompt(router.query.prompts),
     [router.query]
   );
-  const [selectedPrompts, setSelectedPrompts] = React.useState<Prompt[]>([
+  const [selectedPrompts, setSelectedPrompts] = React.useState([
     ...sharedPromptsInURL,
   ]);
   const isTouch = React.useMemo(
@@ -355,7 +355,7 @@ export default function Home() {
   );
 }
 
-function formatURLPrompt(promptQueryString?: string | string[]): Prompt[] {
+function parseURLPrompt(promptQueryString?: string | string[]): Prompt[] {
   if (!promptQueryString) {
     return [];
   }
