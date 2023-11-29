@@ -41,6 +41,12 @@ import {
   StarsIcon,
   TrashIcon,
 } from "@raycast/icons";
+import {
+  addToRaycast,
+  copyData,
+  copyUrl,
+  downloadData,
+} from "../utils/actions";
 
 const raycastProtocolForEnvironments = {
   development: "raycastinternal",
@@ -124,60 +130,23 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
     });
   };
 
-  const makePromptsImportData = React.useCallback(() => {
-    return `[${selectedPrompts
-      .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon, model } = selectedPrompt;
-
-        return JSON.stringify({
-          title,
-          prompt,
-          creativity,
-          icon,
-          model,
-        });
-      })
-      .join(",")}]`;
-  }, [selectedPrompts]);
-
-  const makeQueryString = React.useCallback(() => {
-    const queryString = selectedPrompts
-      .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon, model } = selectedPrompt;
-
-        return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, prompt, creativity, icon, model })
-        )}`;
-      })
-      .join("&");
-    return queryString;
-  }, [selectedPrompts]);
-
   const handleDownload = React.useCallback(() => {
-    const encodedPromptsData = encodeURIComponent(makePromptsImportData());
-    const jsonString = `data:text/json;chatset=utf-8,${encodedPromptsData}`;
-    const link = document.createElement("a");
-    link.href = jsonString;
-    link.download = "prompts.json";
-    link.click();
-  }, [makePromptsImportData]);
+    downloadData(selectedPrompts);
+  }, [selectedPrompts]);
 
   const handleCopyData = React.useCallback(() => {
-    copy(makePromptsImportData());
+    copyData(selectedPrompts);
     setCopied(true);
-  }, [makePromptsImportData]);
+  }, [selectedPrompts]);
 
   const handleCopyUrl = React.useCallback(() => {
-    copy(`${window.location.origin}/shared?${makeQueryString()}`);
+    copyUrl(selectedPrompts);
     setCopied(true);
-  }, [makeQueryString]);
+  }, [selectedPrompts]);
 
   const handleAddToRaycast = React.useCallback(
-    () =>
-      router.replace(
-        `${raycastProtocol}://prompts/import?${makeQueryString()}`
-      ),
-    [router, makeQueryString]
+    () => addToRaycast(router, selectedPrompts),
+    [router, selectedPrompts]
   );
 
   React.useEffect(() => {

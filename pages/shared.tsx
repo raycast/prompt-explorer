@@ -2,7 +2,6 @@ import React from "react";
 import Link from "next/link";
 import SelectionArea, { SelectionEvent } from "@viselect/react";
 import { useRouter } from "next/router";
-import copy from "copy-to-clipboard";
 import { nanoid } from "nanoid";
 import {
   DropdownMenu,
@@ -29,6 +28,7 @@ import {
   StarsIcon,
   Icons,
 } from "@raycast/icons";
+import { addToRaycast, copyData, downloadData } from "../utils/actions";
 
 const raycastProtocolForEnvironments = {
   development: "raycastinternal",
@@ -110,40 +110,19 @@ export default function Home() {
     });
   };
 
-  const makePromptImportData = React.useCallback(() => {
-    return `[${selectedPrompts
-      .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon } = selectedPrompt;
-        return JSON.stringify({ title, prompt, creativity, icon });
-      })
-      .join(",")}]`;
+  const handleDownload = React.useCallback(() => {
+    downloadData(selectedPrompts);
   }, [selectedPrompts]);
 
-  const handleDownload = React.useCallback(() => {
-    const encodedPromptsData = encodeURIComponent(makePromptImportData());
-    const jsonString = `data:text/json;chatset=utf-8,${encodedPromptsData}`;
-    const link = document.createElement("a");
-    link.href = jsonString;
-    link.download = "prompts.json";
-    link.click();
-  }, [makePromptImportData]);
-
   const handleCopyData = React.useCallback(() => {
-    copy(makePromptImportData());
+    copyData(selectedPrompts);
     setCopied(true);
-  }, [makePromptImportData]);
+  }, [selectedPrompts]);
 
-  const handleAddToRaycast = React.useCallback(() => {
-    const queryString = selectedPrompts
-      .map((selectedPrompt) => {
-        const { title, prompt, creativity, icon } = selectedPrompt;
-        return `prompts=${encodeURIComponent(
-          JSON.stringify({ title, prompt, creativity, icon: icon + "-16" })
-        )}`;
-      })
-      .join("&");
-    return router.replace(`${raycastProtocol}://prompts/import?${queryString}`);
-  }, [router, selectedPrompts]);
+  const handleAddToRaycast = React.useCallback(
+    () => addToRaycast(router, selectedPrompts),
+    [router, selectedPrompts]
+  );
 
   React.useEffect(() => {
     const down = (event: KeyboardEvent) => {
@@ -204,6 +183,8 @@ export default function Home() {
   if (sharedPromptsInURL.length === 0) {
     return;
   }
+
+  console.log(categories);
 
   return (
     <div>
