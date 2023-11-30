@@ -9,6 +9,13 @@ const raycastProtocolForEnvironments = {
 };
 const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 
+function prepareModel(model?: string) {
+  if (model && /^".*"$/.test(model)) {
+    return model.slice(1, model.length - 1);
+  }
+  return model || "openai_gpt35_turbo";
+}
+
 function makePromptImportData(prompts: Prompt[]): string {
   return `[${prompts
     .map((selectedPrompt) => {
@@ -19,7 +26,7 @@ function makePromptImportData(prompts: Prompt[]): string {
         prompt,
         creativity,
         icon,
-        model: model ? model : "openai_gpt35_turbo",
+        model: prepareModel(model),
       });
     })
     .join(",")}]`;
@@ -36,7 +43,7 @@ function makeQueryString(prompts: Prompt[]): string {
           prompt,
           creativity,
           icon,
-          model: model ? model : "openai_gpt35_turbo",
+          model: prepareModel(model),
         })
       )}`;
     })
