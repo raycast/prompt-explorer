@@ -19,7 +19,7 @@ function makePromptImportData(prompts: Prompt[]): string {
         prompt,
         creativity,
         icon,
-        model,
+        model: model ? model : "openai_gpt35_turbo",
       });
     })
     .join(",")}]`;
@@ -31,7 +31,13 @@ function makeQueryString(prompts: Prompt[]): string {
       const { title, prompt, creativity, icon, model } = selectedPrompt;
 
       return `prompts=${encodeURIComponent(
-        JSON.stringify({ title, prompt, creativity, icon, model })
+        JSON.stringify({
+          title,
+          prompt,
+          creativity,
+          icon,
+          model: model ? model : "openai_gpt35_turbo",
+        })
       )}`;
     })
     .join("&");
