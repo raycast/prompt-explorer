@@ -25,6 +25,29 @@ function generateSelection(selectionWord: string, resultWord: string) {
 
 const code: Prompt[] = [
   {
+    id: "json-data",
+    title: "Natural Language Processing",
+    prompt:
+      `Act as a natural language processing software. Analyze the given text and return me only a parsable and minified JSON object.\n
+
+Here's the JSON Object structure:
+{
+  "key1": /* Some instructions */,
+  "key2": /* Some instructions */,
+}
+
+Here are the rules you must follow:
+- You MUST return a valid, parsable JSON object.
+- More rules…
+
+Here are some examples to help you out:
+- Example 1…
+- Example 2…` + generateSelection("Text", "JSON Data"),
+    creativity: "low",
+    date: "2023-12-22",
+    icon: "code",
+  },
+  {
     id: "css-to-tailwind",
     title: "Convert CSS code to Tailwind Classes",
     prompt:
