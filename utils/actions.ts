@@ -64,8 +64,12 @@ export function copyData(prompts: Prompt[]) {
   copy(makePromptImportData(prompts));
 }
 
+export function makeUrl(prompts: Prompt[]) {
+  return `${window.location.origin}/shared?${makeQueryString(prompts)}`;
+}
+
 export function copyUrl(prompts: Prompt[]) {
-  copy(`${window.location.origin}/shared?${makeQueryString(prompts)}`);
+  copy(makeUrl(prompts));
 }
 
 export function addToRaycast(router: NextRouter, prompts: Prompt[]) {

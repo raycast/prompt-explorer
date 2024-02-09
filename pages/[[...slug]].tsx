@@ -46,6 +46,7 @@ import {
   copyData,
   copyUrl,
   downloadData,
+  makeUrl,
 } from "../utils/actions";
 
 const raycastProtocolForEnvironments = {
@@ -88,7 +89,9 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
   const router = useRouter();
 
   const [selectedPrompts, setSelectedPrompts] = React.useState<Prompt[]>([]);
-  const [copied, setCopied] = React.useState(false);
+
+  const [showToast, setShowToast] = React.useState(false);
+  const [toastMessage, setToastMessage] = React.useState("");
 
   const [actionsOpen, setActionsOpen] = React.useState(false);
   const [aboutOpen, setAboutOpen] = React.useState(false);
@@ -136,12 +139,28 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
 
   const handleCopyData = React.useCallback(() => {
     copyData(selectedPrompts);
-    setCopied(true);
+    setToastMessage("Copied to clipboard");
+    setShowToast(true);
   }, [selectedPrompts]);
 
-  const handleCopyUrl = React.useCallback(() => {
-    copyUrl(selectedPrompts);
-    setCopied(true);
+  const handleCopyUrl = React.useCallback(async () => {
+    setToastMessage("Copying URL to clipboard...");
+    setShowToast(true);
+
+    const url = makeUrl(selectedPrompts);
+    const encodedUrl = encodeURIComponent(url);
+    const response = await fetch(
+      `https://ray.so/api/shorten-url?url=${encodedUrl}`
+    ).then((res) => res.json());
+
+    if (response.error) {
+      setToastMessage("Error copying URL to clipboard");
+      return;
+    }
+
+    copy(response.link);
+    setShowToast(true);
+    setToastMessage("Copied URL to clipboard!");
   }, [selectedPrompts]);
 
   const handleAddToRaycast = React.useCallback(
@@ -221,12 +240,12 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
   ]);
 
   React.useEffect(() => {
-    if (copied) {
+    if (showToast) {
       setTimeout(() => {
-        setCopied(false);
+        setShowToast(false);
       }, 2000);
     }
-  }, [copied]);
+  }, [showToast]);
 
   return (
     <div>
@@ -428,9 +447,9 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
         </div>
       </header>
 
-      <Toast open={copied} onOpenChange={setCopied}>
+      <Toast open={showToast} onOpenChange={setShowToast}>
         <ToastTitle className={styles.toastTitle}>
-          <CopyClipboardIcon /> Copied to clipboard
+          <CopyClipboardIcon /> {toastMessage}
         </ToastTitle>
       </Toast>
 
