@@ -23,6 +23,42 @@ function generateSelection(selectionWord: string, resultWord: string) {
   return `\n\n${selectionWord}: {selection}\n\n${resultWord}:`;
 }
 
+const browser: Prompt[] = [
+  {
+    id: "inspect-website",
+    title: "Inspect Website",
+    prompt: `Describe me the tech stack used based on the following HTML document:
+
+{browser-tab format="html"}
+
+Consider every element of a tech stack, from frameworks to APIs through tools (analytics, monitoring, etc.). Include which fonts are used. Don't make any guesses on what’s used if there’s no evidence.`,
+    creativity: "low",
+    date: "2024-03-18",
+    icon: "globe-01",
+  },
+  {
+    id: "summarize-youtube-video",
+    title: "Summarize YouTube Video",
+    prompt: `Create a summary of a YouTube video using its transcript. You will use the following template:
+
+"""
+## Summary
+{Multiple sentences summarising the YouTube video}
+
+## Notes
+{Bullet points that summarize the key points or important moments from the video’s transcript with explanations}
+
+## Quotes
+{Extract the best sentences from the transcript in a list}
+"""
+
+Transcript: {browser-tab}`,
+    creativity: "low",
+    date: "2024-03-18",
+    icon: "play-filled",
+  },
+];
+
 const code: Prompt[] = [
   {
     id: "json-data",
@@ -914,6 +950,12 @@ const baseCategories: Category[] = [
     slug: "/code",
     prompts: [...code],
     icon: "code" as const,
+  },
+  {
+    name: "Browser",
+    slug: "/browser",
+    prompts: [...browser],
+    icon: "globe-01" as const,
   },
   {
     name: "Communication",
