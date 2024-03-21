@@ -30,13 +30,6 @@ import {
 } from "@raycast/icons";
 import { addToRaycast, copyData, downloadData } from "../utils/actions";
 
-const raycastProtocolForEnvironments = {
-  development: "raycastinternal",
-  production: "raycast",
-  test: "raycastinternal",
-};
-const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
-
 export default function Home() {
   const router = useRouter();
 

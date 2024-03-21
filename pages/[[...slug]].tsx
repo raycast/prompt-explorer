@@ -44,22 +44,15 @@ import {
 import {
   addToRaycast,
   copyData,
-  copyUrl,
   downloadData,
   makeUrl,
 } from "../utils/actions";
-
-const raycastProtocolForEnvironments = {
-  development: "raycastinternal",
-  production: "raycast",
-  test: "raycastinternal",
-};
-const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 
 const promptModel = {
   openai_davinci_003: ["Davinci", "Davinci-3"],
   openai_gpt35_turbo: ["GPT-3.5", "Open AI GPT-3.5 Turbo"],
   openai_gpt4: ["GPT-4", "Open AI GPT-4"],
+  openai_gpt4_turbo: ["GPT-4-Turbo", "Open AI GPT-4 Turbo"],
   anthropic_claude: ["Claude", "Antrophic Claude"],
 };
 
