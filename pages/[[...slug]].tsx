@@ -31,11 +31,13 @@ import { Instructions } from "../components/Instructions";
 import { useSectionInView } from "../utils/useSectionInViewObserver";
 import { extractPrompts } from "../utils/extractPrompts";
 import CreativityIcon from "../components/CreativityIcon";
+import * as ContextMenu from "@radix-ui/react-context-menu";
 import {
   ChevronDownIcon,
   CopyClipboardIcon,
   DownloadIcon,
   LinkIcon,
+  MinusCircleIcon,
   PlusCircleIcon,
   RaycastLogoNegIcon,
   StarsIcon,
@@ -155,6 +157,12 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
     setShowToast(true);
     setToastMessage("Copied URL to clipboard!");
   }, [selectedPrompts]);
+
+  const handleCopyText = React.useCallback((prompt: Prompt) => {
+    copy(prompt.prompt);
+    setShowToast(true);
+    setToastMessage("Copied to clipboard");
+  }, []);
 
   const handleAddToRaycast = React.useCallback(
     () => addToRaycast(router, selectedPrompts),
@@ -548,62 +556,104 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
                     </h2>
                     <div className={styles.prompts}>
                       {category.prompts.map((prompt, index) => {
+                        const isSelected = selectedPrompts.some(
+                          (selectedPrompt) => selectedPrompt.id === prompt.id
+                        );
                         return (
-                          <div
-                            className={`${styles.item} selectable`}
-                            key={prompt.id}
-                            data-selected={selectedPrompts.some(
-                              (selectedPrompt) =>
-                                selectedPrompt.id === prompt.id
-                            )}
-                            data-key={`${category.slug}-${index}`}
-                          >
-                            <div className={styles.promptTemplate}>
-                              <ScrollArea>
-                                <pre
-                                  className={styles.template}
-                                  dangerouslySetInnerHTML={{
-                                    __html: prompt.prompt.replace(
-                                      /\{[^}]+\}/g,
-                                      `<span class="${styles.placeholder}">$&</span>`
-                                    ),
-                                  }}
-                                ></pre>
-                              </ScrollArea>
-                            </div>
-                            <div className={styles.prompt}>
-                              <span className={styles.name}>
-                                <prompt.iconComponent />
-                                {prompt.title}
-                                {prompt.author ? (
-                                  <span className={styles.promptAuthor}>
-                                    by{" "}
-                                    {prompt.author.link ? (
-                                      <a
-                                        href={prompt.author.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                      >
-                                        {prompt.author.name}
-                                      </a>
-                                    ) : (
-                                      prompt.author.name
-                                    )}
+                          <ContextMenu.Root key={prompt.id}>
+                            <ContextMenu.Trigger>
+                              <div
+                                className={`${styles.item} selectable`}
+                                data-selected={isSelected}
+                                data-key={`${category.slug}-${index}`}
+                              >
+                                <div className={styles.promptTemplate}>
+                                  <ScrollArea>
+                                    <pre
+                                      className={styles.template}
+                                      dangerouslySetInnerHTML={{
+                                        __html: prompt.prompt.replace(
+                                          /\{[^}]+\}/g,
+                                          `<span class="${styles.placeholder}">$&</span>`
+                                        ),
+                                      }}
+                                    ></pre>
+                                  </ScrollArea>
+                                </div>
+                                <div className={styles.prompt}>
+                                  <span className={styles.name}>
+                                    <prompt.iconComponent />
+                                    {prompt.title}
+                                    {prompt.author ? (
+                                      <span className={styles.promptAuthor}>
+                                        by{" "}
+                                        {prompt.author.link ? (
+                                          <a
+                                            href={prompt.author.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                          >
+                                            {prompt.author.name}
+                                          </a>
+                                        ) : (
+                                          prompt.author.name
+                                        )}
+                                      </span>
+                                    ) : null}
                                   </span>
-                                ) : null}
-                              </span>
-                              {prompt.model ? (
-                                <span
-                                  className={styles.promptModel}
-                                  title={promptModel[prompt.model][1]}
+                                  {prompt.model ? (
+                                    <span
+                                      className={styles.promptModel}
+                                      title={promptModel[prompt.model][1]}
+                                    >
+                                      {promptModel[prompt.model][0]}
+                                    </span>
+                                  ) : null}
+                                  <CreativityIcon
+                                    creativity={prompt.creativity}
+                                  />
+                                </div>
+                              </div>
+                            </ContextMenu.Trigger>
+                            <ContextMenu.Portal>
+                              <ContextMenu.Content
+                                className={styles.contextMenuContent}
+                              >
+                                <ContextMenu.Item
+                                  className={styles.contextMenuItem}
+                                  onSelect={() => {
+                                    if (isSelected) {
+                                      return setSelectedPrompts((prevPrompts) =>
+                                        prevPrompts.filter(
+                                          (prevPrompt) =>
+                                            prevPrompt.id !== prompt.id
+                                        )
+                                      );
+                                    }
+                                    setSelectedPrompts((prevPrompts) => [
+                                      ...prevPrompts,
+                                      prompt,
+                                    ]);
+                                  }}
                                 >
-                                  {promptModel[prompt.model][0]}
-                                </span>
-                              ) : null}
-
-                              <CreativityIcon creativity={prompt.creativity} />
-                            </div>
-                          </div>
+                                  {isSelected ? (
+                                    <MinusCircleIcon />
+                                  ) : (
+                                    <PlusCircleIcon />
+                                  )}
+                                  {isSelected
+                                    ? "Deselect Prompt"
+                                    : "Select Prompt"}
+                                </ContextMenu.Item>
+                                <ContextMenu.Item
+                                  className={styles.contextMenuItem}
+                                  onSelect={() => handleCopyText(prompt)}
+                                >
+                                  <CopyClipboardIcon /> Copy Prompt Text{" "}
+                                </ContextMenu.Item>
+                              </ContextMenu.Content>
+                            </ContextMenu.Portal>
+                          </ContextMenu.Root>
                         );
                       })}
                     </div>
