@@ -27,8 +27,11 @@ import {
   PlusCircleIcon,
   StarsIcon,
   Icons,
+  MinusCircleIcon,
 } from "@raycast/icons";
+import * as ContextMenu from "@radix-ui/react-context-menu";
 import { addToRaycast, copyData, downloadData } from "../utils/actions";
+import copy from "copy-to-clipboard";
 
 export default function Home() {
   const router = useRouter();
@@ -116,6 +119,11 @@ export default function Home() {
     () => addToRaycast(router, selectedPrompts),
     [router, selectedPrompts]
   );
+
+  const handleCopyText = React.useCallback((prompt: Prompt) => {
+    copy(prompt.prompt);
+    setCopied(true);
+  }, []);
 
   React.useEffect(() => {
     const down = (event: KeyboardEvent) => {
@@ -283,38 +291,85 @@ export default function Home() {
                         const Icon =
                           prompt.icon in Icons ? Icons[prompt.icon] : StarsIcon;
 
-                        return (
-                          <div
-                            className={`${styles.item} selectable`}
-                            key={prompt.id}
-                            data-selected={selectedPrompts.some(
-                              (selectedPrompt) =>
-                                selectedPrompt?.id === prompt.id
-                            )}
-                            data-key={`${promptGroup.slug}-${index}`}
-                          >
-                            <div className={styles.promptTemplate}>
-                              <ScrollArea>
-                                <pre
-                                  className={styles.template}
-                                  dangerouslySetInnerHTML={{
-                                    __html: prompt.prompt.replace(
-                                      /\{[^}]+\}/g,
-                                      `<span class="${styles.placeholder}">$&</span>`
-                                    ),
-                                  }}
-                                ></pre>
-                              </ScrollArea>
-                            </div>
-                            <div className={styles.prompt}>
-                              <span className={styles.name}>
-                                <Icon />
-                                {prompt.title}
-                              </span>
+                        const isSelected = selectedPrompts.some(
+                          (selectedPrompt) => selectedPrompt.id === prompt.id
+                        );
 
-                              <CreativityIcon creativity={prompt.creativity} />
-                            </div>
-                          </div>
+                        return (
+                          <ContextMenu.Root key={prompt.id}>
+                            <ContextMenu.Trigger>
+                              <div
+                                className={`${styles.item} selectable`}
+                                key={prompt.id}
+                                data-selected={selectedPrompts.some(
+                                  (selectedPrompt) =>
+                                    selectedPrompt?.id === prompt.id
+                                )}
+                                data-key={`${promptGroup.slug}-${index}`}
+                              >
+                                <div className={styles.promptTemplate}>
+                                  <ScrollArea>
+                                    <pre
+                                      className={styles.template}
+                                      dangerouslySetInnerHTML={{
+                                        __html: prompt.prompt.replace(
+                                          /\{[^}]+\}/g,
+                                          `<span class="${styles.placeholder}">$&</span>`
+                                        ),
+                                      }}
+                                    ></pre>
+                                  </ScrollArea>
+                                </div>
+                                <div className={styles.prompt}>
+                                  <span className={styles.name}>
+                                    <Icon />
+                                    {prompt.title}
+                                  </span>
+                                  <CreativityIcon
+                                    creativity={prompt.creativity}
+                                  />
+                                </div>
+                              </div>
+                            </ContextMenu.Trigger>
+                            <ContextMenu.Portal>
+                              <ContextMenu.Content
+                                className={styles.contextMenuContent}
+                              >
+                                <ContextMenu.Item
+                                  className={styles.contextMenuItem}
+                                  onSelect={() => {
+                                    if (isSelected) {
+                                      return setSelectedPrompts((prevPrompts) =>
+                                        prevPrompts.filter(
+                                          (prevPrompt) =>
+                                            prevPrompt.id !== prompt.id
+                                        )
+                                      );
+                                    }
+                                    setSelectedPrompts((prevPrompts) => [
+                                      ...prevPrompts,
+                                      prompt,
+                                    ]);
+                                  }}
+                                >
+                                  {isSelected ? (
+                                    <MinusCircleIcon />
+                                  ) : (
+                                    <PlusCircleIcon />
+                                  )}
+                                  {isSelected
+                                    ? "Deselect Prompt"
+                                    : "Select Prompt"}
+                                </ContextMenu.Item>
+                                <ContextMenu.Item
+                                  className={styles.contextMenuItem}
+                                  onSelect={() => handleCopyText(prompt)}
+                                >
+                                  <CopyClipboardIcon /> Copy Prompt Text{" "}
+                                </ContextMenu.Item>
+                              </ContextMenu.Content>
+                            </ContextMenu.Portal>
+                          </ContextMenu.Root>
                         );
                       })}
                     </div>

@@ -267,6 +267,7 @@
   transition: all 30ms;
   min-width: 0;
   color: #ffffff60;
+  height: 100%;
 
   &:hover {
     background-color: rgba(44, 29, 75, 0.2);
@@ -570,5 +571,34 @@
     letter-spacing: 0.1px;
     color: white;
     margin-bottom: 8px;
+  }
+}
+
+.contextMenuContent {
+  min-width: 220px;
+  overflow: hidden;
+  padding: 6px;
+  border-radius: 8px;
+  background-color: #252525;
+  border: 1px solid hsla(0, 0%, 100%, 0.07);
+  box-shadow: 0 4px 16px 0 rgb(0 0 0 / 50%);
+}
+
+.contextMenuItem {
+  font-size: 13px;
+  line-height: 1;
+  color: var(--violet-11);
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  position: relative;
+  user-select: none;
+  outline: none;
+  cursor: default;
+  gap: 6px;
+
+  &[data-highlighted] {
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
