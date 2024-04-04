@@ -211,12 +211,6 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
         setActionsOpen(false);
       }
 
-      if (key === "," && metaKey && shiftKey) {
-        event.preventDefault();
-        setActionsOpen(false);
-        setAboutOpen(false);
-      }
-
       if (key === "/" && metaKey) {
         event.preventDefault();
         setActionsOpen(false);
@@ -293,14 +287,6 @@ export default function Home({ onTouchReady }: { onTouchReady: () => void }) {
                       <span className={styles.hotkeys}>
                         <kbd>⌘</kbd>
                         <kbd>K</kbd>
-                      </span>
-                    </li>
-                    <li>
-                      Configure Hotkeys
-                      <span className={styles.hotkeys}>
-                        <kbd>⌘</kbd>
-                        <kbd>⇧</kbd>
-                        <kbd>,</kbd>
                       </span>
                     </li>
                     <li>
