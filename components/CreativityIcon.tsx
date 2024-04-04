@@ -1,11 +1,11 @@
 import * as Tooltip from "@radix-ui/react-tooltip";
 
 import {
-  CircleIcon,
-  CircleProgress25Icon,
-  CircleProgress50Icon,
-  CircleProgress75Icon,
-  CircleProgress100Icon,
+  CircleDisabledIcon,
+  StackedBars1Icon,
+  StackedBars2Icon,
+  StackedBars3Icon,
+  StackedBars4Icon,
 } from "@raycast/icons";
 import { Prompt } from "../data/prompts";
 
@@ -18,23 +18,23 @@ export default function CreativityIcon({
 }) {
   let component = null;
   if (creativity === "none") {
-    component = <CircleIcon />;
+    component = <CircleDisabledIcon />;
   }
 
   if (creativity === "low") {
-    component = <CircleProgress25Icon />;
+    component = <StackedBars1Icon />;
   }
 
   if (creativity === "medium") {
-    component = <CircleProgress50Icon />;
+    component = <StackedBars2Icon />;
   }
 
   if (creativity === "high") {
-    component = <CircleProgress75Icon />;
+    component = <StackedBars3Icon />;
   }
 
   if (creativity === "maximum") {
-    component = <CircleProgress100Icon />;
+    component = <StackedBars4Icon />;
   }
 
   const creativityText = {
