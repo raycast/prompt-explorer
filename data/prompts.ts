@@ -1,18 +1,27 @@
 import { IconName, Icons } from "@raycast/icons";
 import { SVGProps } from "react";
 
+export type Model =
+  | "openai-gpt-3.5-turbo-instruct"
+  | "openai-gpt-3.5-turbo"
+  | "openai-gpt-4"
+  | "openai-gpt-4-turbo"
+  | "anthropic-claude-haiku"
+  | "anthropic-claude-opus"
+  | "anthropic-claude-sonnet"
+  | "perplexity-sonar-medium-online"
+  | "perplexity-sonar-small-online"
+  | "llama2-70b"
+  | "mixtral-8x7b"
+  | "codellama-70b-instruct";
+
 export type Prompt = {
   id: string;
   title: string;
   prompt: string;
   icon: IconName;
   creativity: "none" | "low" | "medium" | "high" | "maximum";
-  model?:
-    | "openai_davinci_003"
-    | "openai_gpt35_turbo"
-    | "openai_gpt4"
-    | "openai_gpt4_turbo"
-    | "anthropic_claude";
+  model?: Model;
   date: `${number}-${number}-${number}`;
   author?: {
     name: string;
@@ -36,6 +45,7 @@ Consider every element of a tech stack, from frameworks to APIs through tools (a
     creativity: "low",
     date: "2024-03-18",
     icon: "globe-01",
+    model: "anthropic-claude-haiku",
   },
   {
     id: "summarize-youtube-video",
@@ -55,6 +65,7 @@ Consider every element of a tech stack, from frameworks to APIs through tools (a
 
 Transcript: {browser-tab}`,
     creativity: "low",
+    model: "anthropic-claude-haiku",
     date: "2024-03-18",
     icon: "play-filled",
   },
@@ -697,7 +708,7 @@ Use english language` + generateSelection("Text", "Improved Text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "fix-spelling-and-grammar-custom",
@@ -708,7 +719,7 @@ Use english language` + generateSelection("Text", "Improved Text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "explain-this-in-simple-terms-custom",
@@ -725,7 +736,7 @@ Philosophy is the study of the fundamental nature of knowledge, reality, and exi
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "make-longer-custom",
@@ -740,7 +751,7 @@ Use english language` + generateSelection("Text", "Expanded text"),
     creativity: "high",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "make-shorter-custom",
@@ -754,7 +765,7 @@ Use english language` + generateSelection("Text", "Expanded text"),
     creativity: "high",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "change-tone-to-professional",
@@ -772,7 +783,7 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "change-tone-to-friendly",
@@ -787,7 +798,7 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "change-tone-to-confident-custom",
@@ -805,7 +816,7 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "change-tone-to-casual-custom",
@@ -824,7 +835,7 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "rephrase-as-tweet-custom",
@@ -848,7 +859,7 @@ Tweet:
     creativity: "high",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "explain-code-custom",
@@ -882,7 +893,7 @@ The code is a React component that goes to the previous page.
     creativity: "medium",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "find-bugs-custom",
@@ -931,7 +942,7 @@ Nothing found - LGTM 👌` + generateSelection("Code", "Review"),
     creativity: "medium",
     date: "2023-08-30",
     icon: "raycast-logo-neg",
-    model: "openai_gpt35_turbo",
+    model: "openai-gpt-3.5-turbo",
   },
   {
     id: "summarize-website-custom",

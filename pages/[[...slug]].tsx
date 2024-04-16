@@ -24,7 +24,7 @@ import { ButtonGroup } from "../components/ButtonGroup";
 import * as Collapsible from "@radix-ui/react-collapsible";
 import { isTouchDevice } from "../utils/isTouchDevice";
 
-import { categories, Category, Prompt } from "../data/prompts";
+import { categories, Category, Model, Prompt } from "../data/prompts";
 
 import styles from "../styles/Home.module.css";
 import { Instructions } from "../components/Instructions";
@@ -50,12 +50,28 @@ import {
   makeUrl,
 } from "../utils/actions";
 
-const promptModel = {
-  openai_davinci_003: ["Davinci", "Davinci-3"],
-  openai_gpt35_turbo: ["GPT-3.5", "Open AI GPT-3.5 Turbo"],
-  openai_gpt4: ["GPT-4", "Open AI GPT-4"],
-  openai_gpt4_turbo: ["GPT-4-Turbo", "Open AI GPT-4 Turbo"],
-  anthropic_claude: ["Claude", "Antrophic Claude"],
+const promptModel: Record<Model, string[]> = {
+  "openai-gpt-3.5-turbo-instruct": [
+    "GPT-3.5 Instruct",
+    "OpenAI GPT-3.5 Turbo Instruct",
+  ],
+  "openai-gpt-3.5-turbo": ["GPT-3.5 Turbo", "OpenAI GPT-3.5 Turbo"],
+  "openai-gpt-4": ["GPT-4", "OpenAI GPT-4"],
+  "openai-gpt-4-turbo": ["GPT-4 Turbo", "OpenAI GPT-4 Turbo"],
+  "anthropic-claude-haiku": ["Claude Haiku", "Anthropic Claude Haiku"],
+  "anthropic-claude-opus": ["Claude Opus", "Anthropic Claude Opus"],
+  "anthropic-claude-sonnet": ["Claude Sonnet", "Anthropic Claude Sonnet"],
+  "perplexity-sonar-medium-online": [
+    "Sonar Medium",
+    "Perplexity Sonar Medium Online",
+  ],
+  "perplexity-sonar-small-online": [
+    "Sonar Small",
+    "Perplexity Sonar Small Online",
+  ],
+  "llama2-70b": ["Llama2", "Llama2 70B"],
+  "mixtral-8x7b": ["Mixtral", "Mixtral 8x7B"],
+  "codellama-70b-instruct": ["CodeLlama Instruct", "CodeLlama 70B Instruct"],
 };
 
 export function getStaticPaths() {
