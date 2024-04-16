@@ -1,6 +1,6 @@
 import copy from "copy-to-clipboard";
 import { NextRouter } from "next/router";
-import { Prompt } from "../data/prompts";
+import { Model, Prompt } from "../data/prompts";
 
 const raycastProtocolForEnvironments = {
   development: "raycastinternal",
@@ -11,9 +11,9 @@ const raycastProtocol = raycastProtocolForEnvironments[process.env.NODE_ENV];
 
 function prepareModel(model?: string) {
   if (model && /^".*"$/.test(model)) {
-    return model.slice(1, model.length - 1);
+    return model.slice(1, model.length - 1) as Model;
   }
-  return model || "openai_gpt35_turbo";
+  return model || "openai-gpt-3.5-turbo";
 }
 
 function makePromptImportData(prompts: Prompt[]): string {
