@@ -193,16 +193,6 @@ Here are some examples to help you out:
     id: "convert-to-crontab",
     title: "Convert to Crontab Schedule",
     prompt:
-      "Write a docstring for the function. Make sure the documentation is detailed." +
-      generateSelection("Function", "Docstring"),
-    creativity: "low",
-    date: "2023-06-06",
-    icon: "blank-document",
-  },
-  {
-    id: "convert-to-crontab",
-    title: "Convert to Crontab Schedule",
-    prompt:
       `Act as a knowledgable unix server admin. Given a cronjob schedule in natural language, respond with the correct crontab format for this exact schedule. Double-check your results, ensure it's valid crontab syntax, and respond with nothing but the crontab format.
 
 Example Schedule: at 5:30am every tuesday in may
