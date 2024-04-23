@@ -192,8 +192,7 @@ Here are some examples to help you out:
   {
     id: "convert-to-crontab",
     title: "Convert to Crontab Schedule",
-    prompt:
-      `Act as a knowledgable unix server admin. Given a cronjob schedule in natural language, respond with the correct crontab format for this exact schedule. Double-check your results, ensure it's valid crontab syntax, and respond with nothing but the crontab format.
+    prompt: `Act as a knowledgable unix server admin. Given a cronjob schedule in natural language, respond with the correct crontab format for this exact schedule. Double-check your results, ensure it's valid crontab syntax, and respond with nothing but the crontab format.
 
 Example Schedule: at 5:30am every tuesday in may
 Expected Crontab: 30 5 * 5 2
@@ -714,29 +713,39 @@ const raycast: Prompt[] = [
     id: "improve-writing-custom",
     title: "Improve Writing - Editable",
     prompt:
-      `Act as a spelling corrector and improver. Reply to each message with rewritten text using following instructions to rewrite it:
-- Fix spelling, grammar and punctuation
-- Improve clarity and conciseness
-- Break up overly long sentences
-- Reduce repetition
-- Prefer active voice
-- Prefer simple words
-- Keep the meaning same
-- Keep the tone of voice same
-Use english language` + generateSelection("Text", "Improved Text"),
+      `Act as a spelling corrector, content writer, and text improver/editor. Reply to each message only with the rewritten text
+Stricly follow these rules:
+- Correct spelling, grammar, and punctuation errors in the given text
+- Enhance clarity and conciseness without altering the original meaning
+- Divide lengthy sentences into shorter, more readable ones
+- Eliminate unnecessary repetition while preserving important points
+- Prioritize active voice over passive voice for a more engaging tone
+- Opt for simpler, more accessible vocabulary when possible
+- ALWAYS ensure the original meaning and intention of the given text
+- \(maintainOriginalLanguage)
+- ALWAYS maintain the existing tone of voice and style, e.g. formal, casual, polite, etc.
+- NEVER surround the improved text with quotes or any additional formatting
+- If the text is already well-written and requires no improvement, don't change the given text` +
+      generateSelection("Text", "Improved Text"),
     creativity: "low",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
-    model: "openai-gpt-3.5-turbo",
+    model: "anthropic-claude-haiku",
   },
   {
     id: "fix-spelling-and-grammar-custom",
     title: "Fix Spelling and Grammar - Editable",
     prompt:
-      `Act as a spelling corrector and improver. Rewrite the text with corrected spelling, grammar and punctuation. Use english language` +
-      generateSelection("Text", "Fixed Text"),
+      `Act as a spelling corrector and improver. \(replyWithRewrittenText)
+
+Strictly follow these rules:
+- Correct spelling, grammar and punctuation
+- \(maintainOriginalLanguage)
+- NEVER surround the rewritten text with quotes
+- \(maintainURLs)
+- Don't change emojis` + generateSelection("Text", "Fixed Text"),
     creativity: "low",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -744,16 +753,21 @@ Use english language` + generateSelection("Text", "Improved Text"),
     id: "explain-this-in-simple-terms-custom",
     title: "Explain This in Simple Terms - Editable",
     prompt:
-      `Act as a dictionary and encyclopedia. Explain the text in a simple and concise language. If it's a single word, provide a short definition. If you can't confidently explain the text, answer with "That's something I can't explain 😥".
+      `Act as a dictionary and encyclopedia, providing clear and concise explanations for given words or concepts.
 
-Text:
-Philosophy
+Strictly follow these rules:
+- Explain the text in a simple and concise language
+  - For a single word, provide a brief, easy-to-understand definition
+  - For a concept or phrase, give a concise explanation that breaks down the main ideas into simple terms
+- Use examples or analogies to clarify complex topics when necessary
+- Only reply with the explanation or definition
 
-Explanation:
-Philosophy is the study of the fundamental nature of knowledge, reality, and existence. It is a system of ideas that attempts to explain the world and our place in it. Philosophers use logic and reason to explore the meaning of life and the universe.` +
+Some examples:
+Text: Philosophy
+Explanation: Philosophy is the study of the fundamental nature of knowledge, reality, and existence. It is a system of ideas that attempts to explain the world and our place in it. Philosophers use logic and reason to explore the meaning of life and the universe.` +
       generateSelection("Text", "Explanation"),
     creativity: "low",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -761,14 +775,18 @@ Philosophy is the study of the fundamental nature of knowledge, reality, and exi
     id: "make-longer-custom",
     title: "Make Longer - Editable",
     prompt:
-      `Act as a content writer. Expand the text with the following instructions:
-- Use the same style and tone of voice
-- Expand the key information and concepts
+      `Act as a professional content writer tasked with expanding a client's text while maintaining its essence and style. \(replyWithRewrittenText)
+
+Stictly follow these rules:
+- ALWAYS preserve the original tone, voice, and language of the text
+- Identify and expand the most critical information and key points
 - Avoid repetition
 - Stay factual close to the provided text
-Use english language` + generateSelection("Text", "Expanded text"),
+- Keep URLs in their original format without replacing them with markdown links
+- Only reply with the expanded text` +
+      generateSelection("Text", "Expanded text"),
     creativity: "high",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -776,21 +794,29 @@ Use english language` + generateSelection("Text", "Expanded text"),
     id: "make-shorter-custom",
     title: "Make Shorter - Editable",
     prompt:
-      `Act as a content writer. Make the text shorter with the following instructions:
-- Use the same style and tone of voice
-- Reduce repetition
-- Keep key information
-Use english language` + generateSelection("Text", "Expanded text"),
+      `Act as a professional content writer tasked with shortening a client's text while maintaining its essence and style. \(replyWithRewrittenText)
+
+Strictly follow these rules:
+- ALWAYS preserve the original tone, voice, and language of the text
+- Identify and retain the most critical information and key points
+- Eliminate redundancies and repetitive phrases or sentences
+- Keep URLs in their original format without replacing them with markdown links
+- Ensure the shortened text flows smoothly and maintains coherence
+- Aim to reduce the word count as much as possible without compromising the core meaning and style
+- Only reply with the shortend text` +
+      generateSelection("Text", "Shortened text"),
     creativity: "high",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
-    model: "openai-gpt-3.5-turbo",
+    model: "anthropic-claude-haiku",
   },
   {
     id: "change-tone-to-professional",
     title: "Change Tone to Professional - Editable",
     prompt:
-      `Act as a professional content writer and editor. Rewrite the text to ensure:
+      `Act as a professional content writer and editor. \(replyWithRewrittenText)
+
+Strictly follow these rules:
 - Professional tone of voice
 - Formal language
 - Accurate facts
@@ -798,9 +824,10 @@ Use english language` + generateSelection("Text", "Expanded text"),
 - Concise phrasing
 - meaning  unchanged
 - Length retained
-Use english language` + generateSelection("Text", "Rewritten text"),
+- \(maintainURLs)
+\(maintainOriginalLanguage)` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -808,14 +835,17 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     id: "change-tone-to-friendly",
     title: "Change Tone to Friendly - Editable",
     prompt:
-      `Act as a content writer and editor. Rewrite the text to ensure:
+      `Act as a content writer and editor. \(replyWithRewrittenText)
+
+Strictly follow these rules:
 - Friendly and optimistic tone of voice
 - Correct spelling, grammar, and punctuation
 - Meaning unchanged
 - Length retained
-Use english language` + generateSelection("Text", "Rewritten text"),
+- \(maintainURLs)
+- \(maintainOriginalLanguage)` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -823,7 +853,9 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     id: "change-tone-to-confident-custom",
     title: "Change Tone to Confident - Editable",
     prompt:
-      `Act as a content writer and editor. Rewrite the text with the following instructions:
+      `Act as a content writer and editor. \(replyWithRewrittenText)
+
+Strictly follow these rules:
 - Use confident, formal and friendly tone of voice
 - Avoid hedging, be definite where possible
 - Skip apologies
@@ -831,9 +863,10 @@ Use english language` + generateSelection("Text", "Rewritten text"),
 - Correct spelling, grammar, and punctuation
 - Keep meaning unchanged
 - Keep length retained
-Use english language` + generateSelection("Text", "Rewritten text"),
+- \(maintainURLs)
+- \(maintainOriginalLanguage)` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -841,7 +874,9 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     id: "change-tone-to-casual-custom",
     title: "Change Tone to Casual - Editable",
     prompt:
-      `Act as a content writer and editor. Rewrite the text with the following instructions:
+      `Act as a content writer and editor. \(replyWithRewrittenText)
+
+Strictly follow these rules:
 - Use casual and friendly tone of voice
 - Use active voice
 - Keep sentences shorts
@@ -850,9 +885,10 @@ Use english language` + generateSelection("Text", "Rewritten text"),
 - Correct spelling, grammar, and punctuation
 - Keep meaning unchanged
 - Keep length retained
-Use english language` + generateSelection("Text", "Rewritten text"),
+- \(maintainURLs)
+- \(maintainOriginalLanguage)` + generateSelection("Text", "Rewritten text"),
     creativity: "low",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -860,14 +896,15 @@ Use english language` + generateSelection("Text", "Rewritten text"),
     id: "rephrase-as-tweet-custom",
     title: "Rephrase as Tweet - Editable",
     prompt:
-      `You're an expert in the field and have the perfect opportunity to share your ideas and insights with a huge audience! Rewrite the text as a tweet that is:
+      `You're an expert in the field and have the perfect opportunity to share your ideas and insights with a huge audience!. Rewrite the text as a tweet that is:
 - Casual and upbeat
 - Creative and catchy
 - Focused on key takeaways that challenge the status quo
 - Engaging and punchy
+- \(maintainURLs)
 - IMPORTANT: less than 25 words.
 - IMPORTANT: doesn't include hash, hashtags and words starting with #, i.e. #innovation #Technology
-Use english language
+- \(maintainOriginalLanguage)
 
 Text:
 The concept of Rayday is simple. Every Friday, everyone can use the day to work on something that benefits Raycast. From new features, to fixing bugs, drafting documentation or tidying up, it’s time for us to take a break from project work. As well as getting creative with our own ideas, it’s a great chance to act on feedback from our users and community too.
@@ -876,7 +913,7 @@ Tweet:
 ⚒️ We hack every Friday – we call it 'Rayday'. Everyone can use the day to work on something that benefits Raycast – aside from normal project work.` +
       generateSelection("Text", "Tweet"),
     creativity: "high",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -884,7 +921,7 @@ Tweet:
     id: "explain-code-custom",
     title: "Explain Code Step by Step - Editable",
     prompt:
-      `Act as a software engineer with deep understanding of any programming language and it's documentation.. Explain how the code works step by step in a list. Be concise with a casual tone of voice and write it as documentation for others.
+      `Act as a software engineer with deep understanding of any programming language and it's documentation. Explain how the code works step by step in a list. Be concise with a casual tone of voice and write it as documentation for others.
 
 Code:
 \`\`\`
@@ -910,7 +947,7 @@ The code is a React component that goes to the previous page.
 6. The page is capped at 0 so that the page is never negative.` +
       generateSelection("Code", "Explanation"),
     creativity: "medium",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -918,7 +955,7 @@ The code is a React component that goes to the previous page.
     id: "find-bugs-custom",
     title: "Find Bugs in Code - Editable",
     prompt:
-      `Act as a software engineer with deep understanding of any programming language. Review the code to fix logical bugs in the code. Only consider the provided context, answer concisely and add a codeblock with the proposed code changes. If you can't confidently find bugs, answer with "LGTM 👍".
+      `Act as a software engineer with deep understanding of any programming language. Review the code to fix logical bugs in the code. Only consider the provided context, answer concisely and add a codeblock with the proposed code changes. If you can't confidently find bugs, answer with "Nothing found - LGTM 👍"..
 
 Code:
 \`\`\`
@@ -934,7 +971,7 @@ function PrevAction() {
 \`\`\`
 
 Review:
-The code is missing a check to make sure 'page' is greater than 0 before subtracting 1. Otherwise, the page could be set to -1 which might cause unexpected behavior.
+The code is missing a check to make sure \`page\` is greater than 0 before subtracting 1. Otherwise, the page could be set to -1 which might cause unexpected behavior.
 \`\`\`
 function PrevAction() {
   const [page, setPage] = useGlobalState("page");
@@ -959,7 +996,7 @@ private func submit(_ text: String) {
 Review:
 Nothing found - LGTM 👌` + generateSelection("Code", "Review"),
     creativity: "medium",
-    date: "2023-08-30",
+    date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "openai-gpt-3.5-turbo",
   },
@@ -985,7 +1022,8 @@ Here's the website information:
 {browser-tab}`,
     creativity: "medium",
     date: "2024-03-21",
-    icon: "globe-01",
+    icon: "raycast-logo-neg",
+    model: "anthropic-claude-haiku",
   },
 ];
 
