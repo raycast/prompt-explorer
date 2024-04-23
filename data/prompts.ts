@@ -805,7 +805,7 @@ Strictly follow these rules:
 - Aim to reduce the word count as much as possible without compromising the core meaning and style
 - Only reply with the shortend text` +
       generateSelection("Text", "Shortened text"),
-    creativity: "high",
+    creativity: "low",
     date: "2024-04-23",
     icon: "raycast-logo-neg",
     model: "anthropic-claude-haiku",
@@ -1020,7 +1020,7 @@ Some rules to follow precisely:
 
 Here's the website information:
 {browser-tab}`,
-    creativity: "medium",
+    creativity: "low",
     date: "2024-03-21",
     icon: "raycast-logo-neg",
     model: "anthropic-claude-haiku",
