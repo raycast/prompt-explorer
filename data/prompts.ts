@@ -594,6 +594,20 @@ const misc: Prompt[] = [
     },
   },
   {
+    id: "create-task-list",
+    title: "Create Task List",
+    prompt:
+      "List detailed action steps in markdown format based on the provided text. Ensure the tasks can be efficiently completed." +
+      generateSelection("Text", "Tasks"),
+    creativity: "medium",
+    date: "2024-05-04",
+    icon: "flag",
+    author: {
+      name: "Abner Shang",
+      link: "https://www.linkedin.com/in/abnershang/",
+    },
+  },
+  {
     id: "extract-email-addresses",
     title: "Extract Email Addresses",
     prompt:
