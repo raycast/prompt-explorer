@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { categories } from "../../../data/prompts";
+import { baseCategories } from "../../../data/prompts";
 
 export async function GET() {
-  return NextResponse.json(categories);
+  return NextResponse.json(baseCategories);
 }

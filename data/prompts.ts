@@ -1051,7 +1051,7 @@ export type Category = {
   iconComponent: IconComponent;
 };
 
-const baseCategories: Category[] = [
+export const baseCategories: Category[] = [
   {
     name: "Code",
     slug: "/code",
