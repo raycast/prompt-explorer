@@ -35,8 +35,8 @@ function generateSelection(selectionWord: string, resultWord: string) {
 
 const browser: Prompt[] = [
   {
-    id: "inspect-website",
-    title: "Inspect Website",
+    id: "inspect-webpage",
+    title: "Inspect Webpage",
     prompt: `Describe me the tech stack used based on the following HTML document:
 
 {browser-tab format="html"}
@@ -1019,11 +1019,11 @@ Nothing found - LGTM 👌` + generateSelection("Code", "Review"),
     model: "openai-gpt-3.5-turbo",
   },
   {
-    id: "summarize-website-custom",
-    title: "Summarize Website - Editable",
-    prompt: `Summarize the provided website with the following format:
+    id: "summarize-webpage-custom",
+    title: "Summarize Webpage - Editable",
+    prompt: `Summarize the provided webpage with the following format:
 """
-## <concise and easy-to-read website title>
+## <concise and easy-to-read webpage title>
 
 <one to two sentence summary with the most important information>
 
@@ -1036,7 +1036,7 @@ Some rules to follow precisely:
 - ALWAYS capture the tone, perspective and POV of the author
 - NEVER come up with additional information
 
-Here's the website information:
+Here's the webpage information:
 {browser-tab}`,
     creativity: "low",
     date: "2024-03-21",
